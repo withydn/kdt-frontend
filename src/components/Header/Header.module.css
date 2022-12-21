@@ -1,0 +1,28 @@
+.header {
+  top: 0;
+  width: 100%;
+  height: 60px;
+  padding: var(--padding-layout);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: bisque;
+}
+
+.logo {
+}
+
+.logoText {
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navItem {
+  font-size: 1.1rem;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+}

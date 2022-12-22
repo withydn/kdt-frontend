@@ -1,0 +1,20 @@
+.next {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+
+.prev {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.carouselWrapper {
+  position: relative;
+  width: 400%;
+  height: 100%;
+  display: flex;
+}

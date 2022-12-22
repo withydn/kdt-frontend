@@ -3,8 +3,7 @@
   height: 720px;
   padding: var(--padding-layout);
   color: var(--color-text);
-  background-color: #d6f4ff;
-
+  transition: background-color 0.2s ease-out;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,6 +20,7 @@
 
 .title {
   font-size: 1.5rem;
+  line-height: 1.6;
   font-weight: 600;
 }
 
@@ -32,6 +32,7 @@
   font-size: 1.1rem;
   padding: 10px;
   border: 1px solid #303030;
+  border-right: 0;
   text-align: center;
   cursor: pointer;
   flex: 1 1 auto;
@@ -44,7 +45,7 @@
 }
 
 .option:last-child {
-  border-left: 0;
+  border-right: 1px solid #303030;
 }
 
 .selectInput {
@@ -70,7 +71,16 @@
 }
 
 .innerRight {
+  position: relative;
   width: 740px;
   height: 610px;
-  background-color: mediumvioletred;
+  overflow: hidden;
+
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.4);
+
+  filter: grayscale(10%) sepia(5%);
+  -webkit-filter: grayscale(10%) sepia(5%);
+  -moz-filter: grayscale(10%) sepia(5%);
 }

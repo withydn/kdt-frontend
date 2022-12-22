@@ -1,18 +1,18 @@
 .header {
   top: 0;
   width: 100%;
-  height: 60px;
+  height: 70px;
   padding: var(--padding-layout);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: bisque;
 }
 
 .logo {
 }
 
 .logoText {
+  color: var(--color-text);
 }
 
 .navList {
@@ -23,6 +23,7 @@
 
 .navItem {
   font-size: 1.1rem;
+  color: var(--color-text);
   padding: 0.3rem 0.6rem;
   cursor: pointer;
 }

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './Main.module.css';
+import Carousel from '../../components/Carousel/Carousel';
 
 export default function Main() {
+  const sectionRef = useRef();
+
   return (
-    <section className={styles.container}>
+    <section className={styles.container} ref={sectionRef}>
       <div className={styles.innerLeft}>
         <h2 className={styles.title}>
           고객님,
@@ -12,7 +15,8 @@ export default function Main() {
         </h2>
 
         <ul className={styles.optionList}>
-          <li className={styles.option}>국내</li>
+          <li className={styles.option}>여행</li>
+          <li className={styles.option}>축제</li>
           <li className={styles.option}>숙박</li>
         </ul>
 
@@ -23,7 +27,9 @@ export default function Main() {
         </button>
       </div>
 
-      <div className={styles.innerRight}></div>
+      <div className={styles.innerRight}>
+        <Carousel sectionRef={sectionRef} />
+      </div>
     </section>
   );
 }

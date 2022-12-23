@@ -1,6 +1,16 @@
-import { combineReducers } from "redux";
-import users from "./modules/users";
+import { combineReducers, applyMiddleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import searchInfoReducer from './modules/searchInfo';
+import fetchSigunguReducer from './modules/fetchSigungu';
+import fetchTourListReducer from './modules/fetchTourList';
+import thunk from 'redux-thunk';
 
-export default combineReducers({
-  users,
+const rootReducer = combineReducers({
+  searchInfo: searchInfoReducer,
+  fetchsigungu: fetchSigunguReducer,
+  fetchTourlist: fetchTourListReducer,
 });
+
+const rootStore = configureStore({ reducer: rootReducer }, applyMiddleware(thunk));
+
+export default rootStore;

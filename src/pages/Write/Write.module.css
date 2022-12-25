@@ -6,6 +6,7 @@
   background-color: white;
   position: absolute;
   align-items: center;
+  font-weight: 700;
 }
 
 /* 작성페이지 */
@@ -16,16 +17,15 @@
   display: block;
   position: absolute;
   left: 5%;
-  border: 1px solid;
   margin: 30px auto;
 }
 
 .title_box {
   display: flex;
-  border-bottom: solid 1px;
   height: 80px;
   align-items: center;
   padding-left: 20px;
+  background-color: #ffc72c;
 }
 
 .h3 {
@@ -96,6 +96,13 @@
   text-align: center;
 }
 
+.review_input {
+  margin-top: 25px;
+  margin-left: 20px;
+  width: 80%;
+  height: 800px;
+}
+
 /* 버튼 */
 .btn_box {
   display: flex;
@@ -110,7 +117,8 @@
 .btn_push {
   width: 100px;
   height: 50px;
-  background-color: orange;
+  background-color: #ffc72c;
+  font-weight: 700;
   color: #fff;
 }
 
@@ -120,4 +128,5 @@
   background-color: darkgray;
   color: #fff;
   margin-left: 10px;
+  font-weight: 700;
 }

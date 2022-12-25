@@ -7,8 +7,8 @@ import Accommodation from "./pages/Accommodation/Accommodation";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/signUp/SignUp";
 import { Routes, Route } from "react-router-dom";
-import Review from "./pages/Review/Review";
-
+import Write from "./pages/Write/Write";
+import Board from "./pages/Board/Board";
 function App() {
   return (
     <>
@@ -18,7 +18,9 @@ function App() {
         <Route path="/travel" element={<Travel />} />
         <Route path="/festival" element={<Festival />} />
         <Route path="/accommodation" element={<Accommodation />} />
-        <Route path="/review" element={<Review />} />
+        <Route path="/review" element={<Write />} />
+        <Route path="/board" element={<Board />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

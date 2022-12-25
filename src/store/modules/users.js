@@ -22,7 +22,7 @@ export function logout() {
 }
 
 // 리듀서
-export default function users(state = initState, action) {
+export default function userReducer(state = initState, action) {
   switch (action.type) {
     case LOGIN:
       return {

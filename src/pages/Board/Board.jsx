@@ -47,6 +47,7 @@ export default function Board() {
           </span>
         </div>
         <div className={styles.comment_write_box}>
+          댓글
           <input type="text" value="내용을 입력해주세요"></input>
           <button className={styles.comment_push}>전송</button>
         </div>

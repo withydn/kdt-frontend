@@ -1,7 +1,7 @@
 const initState = {
-  data: [],
-  loading: false,
-  error: '',
+  tourData: [],
+  tourLoading: false,
+  tourError: '',
 };
 
 const FETCH_TOURLIST_REQUEST = 'fetchSigungu/FETCH_TOURLIST_REQUEST';
@@ -20,15 +20,17 @@ function fetchTourListFail(payload) {
   return { type: FETCH_TOURLIST_FAIL, payload };
 }
 
-export function fetchTourList(type, areaCode, sigunguCode) {
+export function fetchTourList(type = 'areaBasedList', areaCode = '1', sigunguCode = '1', contentTypeId = '12') {
   const SERVICE_KEY =
     'pXHnCUsvtd3WiENV2EBHwQIjv7VLn%2BH%2BSXrFKtODpyn3T9x9eH8S5qzsx%2FSQAC8d7%2FMJjLy139f3ui0IrsCZGw%3D%3D';
+
+  const contentType = contentTypeId ? `&contentTypeId=${contentTypeId}` : '';
 
   return (dispatch) => {
     dispatch(fetchTourListRequest());
     fetch(
       // 타입, 지역, 시군구 코드에 따라 api 호출
-      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=A&areaCode=${areaCode}&sigunguCode=${sigunguCode}&_type=json`
+      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=O&areaCode=${areaCode}&sigunguCode=${sigunguCode}&_type=json${contentType}`
     )
       .then((res) => res.json())
       .then((data) => dispatch(fetchTourListSuccess(data)))
@@ -39,13 +41,13 @@ export function fetchTourList(type, areaCode, sigunguCode) {
 export default function fetchTourListReducer(state = initState, action) {
   switch (action.type) {
     case FETCH_TOURLIST_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, tourLoading: true };
 
     case FETCH_TOURLIST_SUCCESS:
-      return { ...state, data: action.payload, loading: false };
+      return { ...state, tourData: action.payload, tourLoading: false };
 
     case FETCH_TOURLIST_FAIL:
-      return { ...state, error: action.payload, loading: false };
+      return { ...state, tourError: action.payload, tourLoading: false };
 
     default:
       return state;

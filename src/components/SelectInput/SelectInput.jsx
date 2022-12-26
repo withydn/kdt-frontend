@@ -7,7 +7,6 @@ import { fetchSigungu } from '../../store/modules/fetchSigungu';
 export default function SelectInput() {
   const [active, setActive] = useState({ area: '서울', sigungu: '' });
   const [isOpen, setIsOpen] = useState(false);
-  const { areaCode } = useSelector((state) => state.searchInfo);
   const { sigunGuData, loading, error } = useSelector((state) => state.fetchsigungu);
   const dispatch = useDispatch();
   const inputRef = useRef();
@@ -16,8 +15,8 @@ export default function SelectInput() {
   useEffect(() => {
     window.addEventListener('click', () => {
       setIsOpen(false);
+      dispatch(changeSigunguCode(' '));
     });
-    dispatch(fetchSigungu('1'));
 
     return () => {
       window.removeEventListener(
@@ -56,8 +55,12 @@ export default function SelectInput() {
         className={styles.selectInput}
         readOnly
         type='text'
-        placeholder='여행지를 선택하세요'
-        onClick={() => setIsOpen((prev) => !prev)}
+        placeholder='원하시는 지역을 선택하세요'
+        onClick={() => {
+          setIsOpen((prev) => !prev);
+          dispatch(changeSigunguCode('1'));
+          dispatch(fetchSigungu('1'));
+        }}
         ref={inputRef}
       />
       {isOpen && (

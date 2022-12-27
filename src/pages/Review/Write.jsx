@@ -80,11 +80,7 @@ export default function Write() {
         <div className={styles.content_box}>
           <div className={styles.content_name}>*제목</div>
           <div className={styles.content_input}>
-            <input
-              type="text"
-              placeholder="제목을 입력하세요"
-              ref={titleInput}
-            ></input>
+            <input type="text" placeholder="제목을 입력하세요" ref={titleInput}></input>
           </div>
         </div>
         <div className={styles.review_box}>

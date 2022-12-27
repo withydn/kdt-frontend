@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./Review.module.css";
 export default function Review() {
   const [reviews, setReviews] = useState([]);
@@ -10,9 +10,29 @@ export default function Review() {
     const reviewRes = await fetch("http://localhost:4500/review/getAll");
     if (reviewRes.status === 200) {
       const data = await reviewRes.json();
+
       setReviews(data);
     }
   }
+  const { reviewNo } = useParams();
+  const [count, setCount] = useState(0);
+  async function addCounts() {
+    const countRes = await fetch(`http://localhost:4500/review/addCounts/${reviewNo}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (countRes.status === 200) {
+      const msg = await countRes.json();
+      if (msg === "업데이트 성공") {
+        setCount(count + 1);
+      } else {
+        alert("업데이트 문제");
+      }
+    }
+  }
+
   // const reviews = [
   //   {
   //     no: 1,
@@ -72,7 +92,7 @@ export default function Review() {
           );
         })}
       </table>
-      <button className={styles.btn}>
+      <button className={styles.btn} onClick={() => addCounts()}>
         <Link to="write">글쓰기</Link>
       </button>
     </div>

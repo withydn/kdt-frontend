@@ -71,9 +71,9 @@ export default function ReviewDetail() {
           {like}
         </div>
         <br />
-        <button className={styles.btn}>
-          <Link to="/review">목록</Link>
-        </button>
+        <Link to="/review">
+          <button className={styles.btn}>목록</button>
+        </Link>
       </div>
     </div>
   );

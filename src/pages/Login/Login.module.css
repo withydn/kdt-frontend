@@ -75,7 +75,7 @@
 }
 
 .kakao_btn {
-  background-image: url("/public/images/kakao_login_large_wide.png");
+  background-image: url("/public/images/kakao_login_large_wide\ \(1\).png");
   background-repeat: no-repeat;
   background-size: cover;
   margin: 20px auto;

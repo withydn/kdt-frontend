@@ -92,9 +92,11 @@ export default function Review() {
           );
         })}
       </table>
+<Link to="write">
       <button className={styles.btn} onClick={() => addCounts()}>
-        <Link to="write">글쓰기</Link>
-      </button>
+        글쓰기
+      </button></Link>
+
     </div>
   );
 }

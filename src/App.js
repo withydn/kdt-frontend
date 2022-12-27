@@ -10,6 +10,8 @@ import { Routes, Route } from 'react-router-dom';
 import Write from './pages/Write/Write';
 import Board from './pages/Board/Board';
 import Detail from './pages/Detail/Detail';
+import Review from './pages/Review/Review';
+import ReviewDetail from './pages/Review/ReviewDetail';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path='/accommodation' element={<Accommodation />} />
         <Route path='/detail/:contentId' element={<Detail />} />
         <Route path='/review' element={<Write />} />
+        <Route path='/review' element={<Review />} />
+        <Route path='/review/:reviewNo' element={<ReviewDetail />} />
         <Route path='/board' element={<Board />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />

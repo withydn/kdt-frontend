@@ -5,6 +5,10 @@ import { useDispatch } from "react-redux";
 import { login } from "../../store/modules/users";
 
 export default function Login() {
+  const KAKAO_CLIENT_ID = "71fc8b830aac0622e9954140782b4cf4";
+  const KAKAO_REDIRECT_URI = "http://localhost:3000/oauth/callback/kakao";
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
+
   const userEmailInput = useRef();
   const userPasswordInput = useRef();
   const dispatch = useDispatch();
@@ -71,6 +75,9 @@ export default function Login() {
           <Link to="/signup">
             <button className={styles.register_btn}>회원가입</button>
           </Link>
+          <a href={KAKAO_AUTH_URL}>
+            <div className={styles.kakao_btn}></div>
+          </a>
         </div>
         <footer className={styles.footer}></footer>
       </div>

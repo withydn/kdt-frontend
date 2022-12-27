@@ -72,9 +72,9 @@ export default function Review() {
           );
         })}
       </table>
-      <button className={styles.btn}>
-        <Link to="write">글쓰기</Link>
-      </button>
+      <Link to="write">
+        <button className={styles.btn}>글쓰기</button>
+      </Link>
     </div>
   );
 }

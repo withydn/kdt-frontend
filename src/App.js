@@ -9,6 +9,7 @@ import Signup from "./pages/signUp/SignUp";
 import { Routes, Route } from "react-router-dom";
 import Write from "./pages/Write/Write";
 import Board from "./pages/Board/Board";
+import KakaoRedirectHandler from "./pages/Login/KakaoRedirectHandeler";
 function App() {
   return (
     <>
@@ -22,6 +23,10 @@ function App() {
         <Route path="/board" element={<Board />} />
 
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/oauth/callback/kakao"
+          element={<KakaoRedirectHandler />}
+        />
         <Route path="/signup" element={<Signup />} />
       </Routes>
     </>

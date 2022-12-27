@@ -33,7 +33,11 @@ export function fetchTourList(type = 'areaBasedList', areaCode = '1', sigunguCod
       `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=O&areaCode=${areaCode}&sigunguCode=${sigunguCode}&_type=json${contentType}`
     )
       .then((res) => res.json())
-      .then((data) => dispatch(fetchTourListSuccess(data)))
+      .then((data) => {
+        if (data.response?.header.resultCode === '0000') {
+          dispatch(fetchTourListSuccess(data.response?.body.items.item));
+        }
+      })
       .catch((err) => dispatch(fetchTourListFail(err)));
   };
 }

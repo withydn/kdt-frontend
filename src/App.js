@@ -10,6 +10,8 @@ import { Routes, Route } from "react-router-dom";
 import Write from "./pages/Write/Write";
 import Board from "./pages/Board/Board";
 import KakaoRedirectHandler from "./pages/Login/KakaoRedirectHandeler";
+import Detail from './pages/Detail/Detail';
+
 function App() {
   return (
     <>
@@ -21,8 +23,8 @@ function App() {
         <Route path="/accommodation" element={<Accommodation />} />
         <Route path="/review" element={<Write />} />
         <Route path="/board" element={<Board />} />
-
         <Route path="/login" element={<Login />} />
+        <Route path='/detail/:contentId' element={<Detail />} />
         <Route
           path="/oauth/callback/kakao"
           element={<KakaoRedirectHandler />}

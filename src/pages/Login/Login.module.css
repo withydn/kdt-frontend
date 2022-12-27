@@ -19,7 +19,7 @@
   left: 50%;
   top: 50%;
   margin-left: -250px;
-  margin-top: -200px;
+  margin-top: -250px;
 }
 .login_text {
   width: 100%;
@@ -72,4 +72,15 @@
 .register_btn:hover {
   border: solid 1px darkgray;
   background-color: darkgray;
+}
+
+.kakao_btn {
+  background-image: url("/public/images/kakao_login_large_wide.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 20px auto;
+  /* padding: -10px; */
+  color: transparent;
+  width: 500px;
+  height: 75px;
 }

@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login } from "../store/modules/users";
+import { login } from "../../store/modules/users";
 
 export default function KakaoRedirectHandeler() {
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ export default function KakaoRedirectHandeler() {
           };
           // 회원 가입 처리
           const registerResponse = await fetch(
-            "http://localhost:4000/users/register",
+            "http://localhost:4500/register",
             {
               method: "POST",
               headers: {

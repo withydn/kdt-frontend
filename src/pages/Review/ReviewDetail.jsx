@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import styles from './Review.module.css';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import styles from "./Review.module.css";
+import { Link } from "react-router-dom";
 export default function ReviewDetail() {
   const { reviewNo } = useParams();
   const [like, setLike] = useState(0);
@@ -10,7 +10,7 @@ export default function ReviewDetail() {
     fetchReview();
   }, []);
   async function fetchReview() {
-    const reviewRes = await fetch(`http://localhost:4000/review/${reviewNo}`);
+    const reviewRes = await fetch(`http://localhost:4500/review/${reviewNo}`);
     if (reviewRes.status === 200) {
       const data = await reviewRes.json();
       setReview(data);
@@ -18,18 +18,21 @@ export default function ReviewDetail() {
     }
   }
   async function addLike() {
-    const likeRes = await fetch(`http://localhost:4000/review/addLike/${reviewNo}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const likeRes = await fetch(
+      `http://localhost:4500/review/addLike/${reviewNo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (likeRes.status === 200) {
       const msg = await likeRes.json();
-      if (msg === '업데이트 성공') {
+      if (msg === "업데이트 성공") {
         setLike(like + 1);
       } else {
-        alert('업데이트 문제');
+        alert("업데이트 문제");
       }
     }
   }
@@ -53,7 +56,7 @@ export default function ReviewDetail() {
         </div>
         <br />
         <button className={styles.btn}>
-          <Link to='/review'>목록</Link>
+          <Link to="/review">목록</Link>
         </button>
       </div>
     </div>

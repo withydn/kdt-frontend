@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Review.module.css';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import styles from "./Review.module.css";
 export default function Review() {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     fetchAllReview();
   }, []);
   async function fetchAllReview() {
-    const reviewRes = await fetch('http://localhost:4000/review/getAll');
+    const reviewRes = await fetch("http://localhost:4500/review/getAll");
     if (reviewRes.status === 200) {
       const data = await reviewRes.json();
       setReviews(data);
@@ -50,12 +50,12 @@ export default function Review() {
       <p>총 {reviews.length}건</p>
       <table>
         <tr>
-          <th style={{ width: '100px' }}>번호</th>
-          <th style={{ width: '450px' }}>제목</th>
-          <th style={{ width: '180px' }}>작성자</th>
-          <th style={{ width: '180px' }}>등록일</th>
-          <th style={{ width: '150px' }}>조회수</th>
-          <th style={{ width: '150px' }}>추천수</th>
+          <th style={{ width: "100px" }}>번호</th>
+          <th style={{ width: "450px" }}>제목</th>
+          <th style={{ width: "180px" }}>작성자</th>
+          <th style={{ width: "180px" }}>등록일</th>
+          <th style={{ width: "150px" }}>조회수</th>
+          <th style={{ width: "150px" }}>추천수</th>
         </tr>
         {reviews.map((el) => {
           return (
@@ -73,7 +73,7 @@ export default function Review() {
         })}
       </table>
       <button className={styles.btn}>
-        <Link to='write'>글쓰기</Link>
+        <Link to="write">글쓰기</Link>
       </button>
     </div>
   );

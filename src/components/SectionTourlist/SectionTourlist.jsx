@@ -45,16 +45,15 @@ export default function SectionTourlist() {
     }
   };
 
-  const sample = tourData?.response?.body?.items?.item;
-  const realData = sample && [...sample.slice(6), ...sample, ...sample.slice(0, 4)];
+  const carouselData = tourData && [...tourData.slice(6), ...tourData, ...tourData.slice(0, 4)];
 
   return (
     <section className={styles.container}>
       <div className={styles.itemWrapper}>
         <h2 className={styles.title}>국내여행</h2>
         <div className={styles.itemSlides} style={carouselSlide()}>
-          {realData &&
-            realData.map((el, index) => (
+          {carouselData &&
+            carouselData.map((el, index) => (
               <div key={index} className={styles.itemCard}>
                 <img src={el.firstimage} alt='' className={styles.image} />
                 <p>{el.title}</p>

@@ -1,7 +1,7 @@
 const initState = {
   type: 'areaBasedList',
   areaCode: '1',
-  sigunguCode: ' ',
+  sigunguCode: '1',
 };
 
 const CHANGE_TYPE = 'searchInfo/CHANGE_TYPE';

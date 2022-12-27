@@ -32,7 +32,7 @@ export function fetchSigungu(areaCode) {
       .then((res) => res.json())
       .then((data) => {
         if (data.response.header.resultCode === '0000') {
-          dispatch(fetchSigunguSuccess(data.response.body.items.item));
+          dispatch(fetchSigunguSuccess(data.response?.body.items.item));
         }
       })
       .catch((error) => dispatch(fetchSigunguFail(error)));

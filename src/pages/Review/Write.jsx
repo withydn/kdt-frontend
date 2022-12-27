@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Editor from "./Editor";
 import styles from "./Write.module.css";
 
@@ -97,7 +97,9 @@ export default function Write() {
           <button className={styles.btn_push} onClick={() => post()}>
             글쓰기
           </button>
-          <button className={styles.btn_cancel}>취소하기</button>
+          <Link to="/review">
+            <button className={styles.btn_cancel}>취소하기</button>
+          </Link>
         </div>
       </div>
     </div>

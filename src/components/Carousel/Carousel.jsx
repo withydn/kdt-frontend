@@ -1,44 +1,57 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './Carousel.module.css';
-import CarouselItem from '../CarouselItem/CarouselItem';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 
 export default function Carousel({ sectionRef }) {
-  const [slide, setSlide] = useState(0);
+  const [slide, setSlide] = useState(1);
   const carouselRef = useRef();
 
   useEffect(() => {
-    carouselRef.current.style.transform = `translateX(${-(100 / backgroundInfo.length) * slide}%)`;
+    const interval = setInterval(() => {
+      setSlide((prev) => prev + 1);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (slide === 5) setSlide(1);
+    if (slide === 0) setSlide(4);
+    carouselRef.current.style.backgroundImage = backgroundInfo[slide].carousel;
     sectionRef.current.style.backgroundColor = backgroundInfo[slide].section;
   }, [slide]);
 
   const handleNextClick = () => {
     setSlide((prev) => prev + 1);
-    if (slide === 3) setSlide(0);
   };
 
   const handlePrevClick = () => {
     setSlide((prev) => prev - 1);
-    if (slide === 0) setSlide(3);
   };
 
   return (
     <>
-      <div className={styles.carouselWrapper} ref={carouselRef}>
-        {backgroundInfo.map((el, index) => (
-          <CarouselItem key={index} item={el} />
-        ))}
+      <div className={styles.carouselWrapper}>
+        <div className={styles.carouselItem} ref={carouselRef}></div>
       </div>
-      <span className={styles.next} onClick={handleNextClick}>
-        다음
-      </span>
-      <span className={styles.prev} onClick={handlePrevClick}>
-        이전
-      </span>
+      <div className={styles.iconWrapper}>
+        <span className={styles.prev} onClick={handlePrevClick}>
+          <MdKeyboardArrowLeft className={styles.icons} />
+        </span>
+        <span className={styles.next} onClick={handleNextClick}>
+          <MdKeyboardArrowRight className={styles.icons} />
+        </span>
+      </div>
     </>
   );
 }
 
 const backgroundInfo = [
+  {
+    section: '#7fd1ae',
+    carousel: "url('images/carouselReview.jpeg')",
+    text: '리뷰쓰고<br/>숙박권 받자',
+    color: '#303030',
+  },
   {
     section: '#b0edf6',
     carousel: "url('images/carouselTravel.jpeg')",
@@ -62,5 +75,11 @@ const backgroundInfo = [
     carousel: "url('images/carouselReview.jpeg')",
     text: '리뷰쓰고<br/>숙박권 받자',
     color: '#303030',
+  },
+  {
+    section: '#b0edf6',
+    carousel: "url('images/carouselTravel.jpeg')",
+    text: '행복한 여행<br/>함께 준비해요',
+    color: '#FFFFFF',
   },
 ];

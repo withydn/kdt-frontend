@@ -15,8 +15,8 @@ export default function SectionCarousel() {
 
   // 여행,숙박,축제 클릭할 경우 클릭 상태 저장, api 요청시 필요한 type 변경
   const handleOptionClick = (e) => {
+    dispatch(changeType(e.target.textContent));
     setSelected(e.target.textContent);
-    dispatch(changeType(selected));
   };
 
   // button 클릭 시 페이지 이동하기 위한 router 주소 값 반환
@@ -28,7 +28,7 @@ export default function SectionCarousel() {
 
   // 알아보기 버튼 클릭 시 이동, 지역을 선택하지 않으면 alert 생성
   const handleButtonClick = () => {
-    if (sigunguCode === ' ') {
+    if (sigunguCode === '') {
       alert('지역을 선택해주세요');
     } else {
       navigate(getPageNation());
@@ -44,10 +44,16 @@ export default function SectionCarousel() {
           어떤 여행을 꿈꾸시나요?
         </h2>
 
-        <ul className={styles.optionList} onClick={handleOptionClick}>
-          <li className={`${styles.option} ${selected === '여행' && styles.active}`}>여행</li>
-          <li className={`${styles.option} ${selected === '축제' && styles.active}`}>축제</li>
-          <li className={`${styles.option} ${selected === '숙박' && styles.active}`}>숙박</li>
+        <ul className={styles.optionList}>
+          {typesInfo.map((el) => (
+            <li
+              key={el.name}
+              onClick={handleOptionClick}
+              className={`${styles.option} ${selected === el.name && styles.active}`}
+            >
+              {el.name}
+            </li>
+          ))}
         </ul>
 
         <SelectInput />
@@ -63,3 +69,9 @@ export default function SectionCarousel() {
     </section>
   );
 }
+
+const typesInfo = [
+  { name: '여행', type: 'areaBasedList' },
+  { name: '축제', type: 'searchFestival' },
+  { name: '숙박', type: 'searchStay' },
+];

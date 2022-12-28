@@ -20,7 +20,13 @@ function fetchTourListFail(payload) {
   return { type: FETCH_TOURLIST_FAIL, payload };
 }
 
-export function fetchTourList(type = 'areaBasedList', areaCode = '1', sigunguCode = '1', contentTypeId = '12') {
+export function fetchTourList(
+  type = 'areaBasedList',
+  areaCode = '1',
+  sigunguCode = '1',
+  contentTypeId = '12',
+  pageNo = '1'
+) {
   const SERVICE_KEY =
     'pXHnCUsvtd3WiENV2EBHwQIjv7VLn%2BH%2BSXrFKtODpyn3T9x9eH8S5qzsx%2FSQAC8d7%2FMJjLy139f3ui0IrsCZGw%3D%3D';
 
@@ -30,12 +36,12 @@ export function fetchTourList(type = 'areaBasedList', areaCode = '1', sigunguCod
     dispatch(fetchTourListRequest());
     fetch(
       // 타입, 지역, 시군구 코드에 따라 api 호출
-      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=10&MobileApp=AppTest&MobileOS=ETC&arrange=O&areaCode=${areaCode}&sigunguCode=${sigunguCode}&_type=json${contentType}`
+      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${SERVICE_KEY}&pageNo=${pageNo}&numOfRows=8&MobileApp=AppTest&MobileOS=ETC&arrange=O&areaCode=${areaCode}&sigunguCode=${sigunguCode}&_type=json${contentType}`
     )
       .then((res) => res.json())
       .then((data) => {
         if (data.response?.header.resultCode === '0000') {
-          dispatch(fetchTourListSuccess(data.response?.body.items.item));
+          dispatch(fetchTourListSuccess(data.response.body));
         }
       })
       .catch((err) => dispatch(fetchTourListFail(err)));

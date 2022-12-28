@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import styles from "./Review.module.css";
+
 export default function Review() {
+  const { isLogin } = useSelector((state) => state.user);
   const [reviews, setReviews] = useState([]);
+
   const isLogin = useSelector((state) => state.user.isLogin);
 
   useEffect(() => {
     fetchAllReview();
   }, []);
+
   async function fetchAllReview() {
-    const reviewRes = await fetch("http://localhost:4500/review/getAll");
+    const reviewRes = await fetch('http://localhost:4500/review/getAll');
     if (reviewRes.status === 200) {
       const data = await reviewRes.json();
 
@@ -70,18 +74,28 @@ export default function Review() {
   //   const allReviews = await reviewResponse.json();
   //   setReviews(allReviews);
   // }
+
+  const handleWriteClick = () => {
+    if (isLogin) {
+      navigate('/review/write');
+    } else {
+      alert('로그인을 해주세요');
+      navigate('/login');
+    }
+  };
+
   return (
     <div className={styles.wrap}>
       <h3 className={styles.title}>여행 후기 게시판</h3>
       <p>총 {reviews.length}건</p>
       <table>
         <tr>
-          <th style={{ width: "100px" }}>번호</th>
-          <th style={{ width: "450px" }}>제목</th>
-          <th style={{ width: "180px" }}>작성자</th>
-          <th style={{ width: "180px" }}>등록일</th>
-          <th style={{ width: "150px" }}>조회수</th>
-          <th style={{ width: "150px" }}>추천수</th>
+          <th style={{ width: '100px' }}>번호</th>
+          <th style={{ width: '450px' }}>제목</th>
+          <th style={{ width: '180px' }}>작성자</th>
+          <th style={{ width: '180px' }}>등록일</th>
+          <th style={{ width: '150px' }}>조회수</th>
+          <th style={{ width: '150px' }}>추천수</th>
         </tr>
         {reviews.map((el) => {
           return (
@@ -98,6 +112,8 @@ export default function Review() {
           );
         })}
       </table>
+
+
       {isLogin && (
         <Link to="write">
           <button className={styles.btn} onClick={() => addCounts()}>
@@ -105,6 +121,7 @@ export default function Review() {
           </button>
         </Link>
       )}
+
     </div>
   );
 }

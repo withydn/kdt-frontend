@@ -45,7 +45,10 @@ export default function SectionTourlist() {
     }
   };
 
-  const carouselData = tourData && [...tourData.slice(6), ...tourData, ...tourData.slice(0, 4)];
+  const data = tourData.items?.item;
+  const arr1 = data?.slice(6);
+  const arr2 = data?.slice(0, 4);
+  const carouselData = [...arr1, ...data, ...arr2];
 
   return (
     <section className={styles.container}>
@@ -53,7 +56,7 @@ export default function SectionTourlist() {
         <h2 className={styles.title}>국내여행</h2>
         <div className={styles.itemSlides} style={carouselSlide()}>
           {carouselData &&
-            carouselData.map((el, index) => (
+            carouselData?.map((el, index) => (
               <div key={index} className={styles.itemCard}>
                 <img src={el.firstimage} alt='' className={styles.image} />
                 <p>{el.title}</p>

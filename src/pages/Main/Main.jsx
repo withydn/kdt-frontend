@@ -8,7 +8,7 @@ export default function Main() {
   return (
     <>
       <SectionCarousel />
-      <SectionTourlist />
+      {/* <SectionTourlist /> */}
       <SectionDistance />
     </>
   );

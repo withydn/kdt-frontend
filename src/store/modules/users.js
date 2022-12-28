@@ -1,10 +1,10 @@
 // 액션 타입(문자열)
-const LOGIN = "users/LOGIN";
-const LOGOUT = "users/LOGOUT";
+const LOGIN = 'users/LOGIN';
+const LOGOUT = 'users/LOGOUT';
 
 // 초기 상태 설정
 const initState = {
-  userEmail: "",
+  userEmail: '',
   isLogin: false,
 };
 
@@ -15,6 +15,7 @@ export function login(loginInfo) {
     payload: loginInfo,
   };
 }
+
 export function logout() {
   return {
     type: LOGOUT,
@@ -33,7 +34,7 @@ export default function userReducer(state = initState, action) {
     case LOGOUT:
       return {
         ...state,
-        userEmail: "",
+        userEmail: '',
         isLogin: false,
       };
     default:

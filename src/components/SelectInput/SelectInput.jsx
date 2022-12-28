@@ -5,9 +5,9 @@ import { changeAreaCode, changeSigunguCode } from '../../store/modules/searchInf
 import { fetchSigungu } from '../../store/modules/fetchSigungu';
 
 export default function SelectInput() {
-  const [active, setActive] = useState({ area: '서울', sigungu: '' });
   const [isOpen, setIsOpen] = useState(false);
-  const { sigunGuData, loading, error } = useSelector((state) => state.fetchsigungu);
+  const { type, areaCode, sigunguCode } = useSelector((state) => state.searchInfo);
+  const { sigunGuData, loading } = useSelector((state) => state.fetchsigungu);
   const dispatch = useDispatch();
   const inputRef = useRef();
 
@@ -15,7 +15,6 @@ export default function SelectInput() {
   useEffect(() => {
     window.addEventListener('click', () => {
       setIsOpen(false);
-      dispatch(changeSigunguCode(' '));
     });
 
     return () => {
@@ -30,23 +29,21 @@ export default function SelectInput() {
 
   // input value 설정 시 + 시군구
   useEffect(() => {
-    if (active.sigungu !== '') {
-      inputRef.current.value = `${active.area} ${active.sigungu}`;
-    }
-  }, [active.sigungu]);
+    const areaName = areaCodes.find((el) => el.code === areaCode);
+    const sigunguName = sigunGuData.find((el) => el.code === sigunguCode);
+    inputRef.current.value = `${areaName?.name || ''} ${sigunguName?.name || ''}`;
+  }, [sigunguCode, areaCode]);
 
   // 지역을 선택하면 시군구 api 요청
   const handleAreaClick = (area) => {
     dispatch(changeAreaCode(area.code));
     dispatch(fetchSigungu(area.code));
     dispatch(changeSigunguCode(''));
-    setActive({ ...active, area: area.name });
   };
 
   // 지역 선택할때 active 효과를 주기 위해 useState로 관리
   const handleSigunguClick = (sigungu) => {
     dispatch(changeSigunguCode(sigungu.code));
-    setActive({ ...active, sigungu: sigungu.name });
   };
 
   return (
@@ -58,7 +55,7 @@ export default function SelectInput() {
         placeholder='원하시는 지역을 선택하세요'
         onClick={() => {
           setIsOpen((prev) => !prev);
-          dispatch(changeSigunguCode('1'));
+          dispatch(changeAreaCode('1'));
           dispatch(fetchSigungu('1'));
         }}
         ref={inputRef}
@@ -75,7 +72,7 @@ export default function SelectInput() {
               {areaCodes.map((area) => (
                 <div
                   key={area.name}
-                  className={`${styles.area} ${active.area === area.name ? styles.active : ''}`}
+                  className={`${styles.area} ${areaCode === area.code ? styles.active : ''}`}
                   onClick={() => handleAreaClick(area)}
                 >
                   {area.name}
@@ -87,7 +84,7 @@ export default function SelectInput() {
               {sigunGuData &&
                 sigunGuData.map((sigungu) => (
                   <div
-                    className={`${styles.sigungu} ${active.sigungu === sigungu.name ? styles.active : ''}`}
+                    className={`${styles.sigungu} ${sigunguCode === sigungu.code ? styles.active : ''}`}
                     key={sigungu.name}
                     onClick={() => handleSigunguClick(sigungu)}
                   >

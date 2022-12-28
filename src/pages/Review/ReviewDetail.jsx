@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "./Review.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +17,7 @@ export default function ReviewDetail() {
   const commentInput = useRef();
   const userEmail = useSelector((state) => state.user.userEmail);
   const isLogin = useSelector((state) => state.user.isLogin);
+  const navigate = useNavigate();
 
   const deleteComment = async (author, comment) => {
     const deleteCommentResponse = await fetch(
@@ -66,16 +67,10 @@ export default function ReviewDetail() {
     }
   };
 
-  useEffect(() => {
-    fetchReview();
-    addCount();
-  }, [comment]);
-
   async function fetchReview() {
     const reviewRes = await fetch(`http://localhost:4500/review/${reviewNo}`);
     if (reviewRes.status === 200) {
       const data = await reviewRes.json();
-      console.log(data);
       setReview(data);
       setLike(data.like);
     }
@@ -117,6 +112,30 @@ export default function ReviewDetail() {
     }
   }
 
+  const deleteReview = async () => {
+    const deleteReviewResponse = await fetch(
+      `http://localhost:4500/review/delete/${reviewNo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (deleteReviewResponse.status === 200) {
+      const deleteReviewResult = await deleteReviewResponse.json();
+      alert(deleteReviewResult.msg);
+      navigate("/review");
+    } else {
+      alert("리뷰 삭제 실패");
+    }
+  };
+
+  useEffect(() => {
+    fetchReview();
+    addCount();
+  }, [comment]);
+
   return (
     <div>
       {/* <div>review ID is {reviewID} </div> */}
@@ -153,10 +172,19 @@ export default function ReviewDetail() {
           {like}
         </div> */}
         <br />
-        <div className={styles.write_btnbox}>
-          <button className={styles.write_modify}>수정</button>
-          <button className={styles.write_delete}>삭제</button>
-        </div>
+        {userEmail === review.author && (
+          <div className={styles.write_btnbox}>
+            <Link to={`/review/modify/${reviewNo}`}>
+              <button className={styles.write_modify}>수정</button>
+            </Link>
+            <button
+              className={styles.write_delete}
+              onClick={() => deleteReview()}
+            >
+              삭제
+            </button>
+          </div>
+        )}
         {review.comments?.map((el, index) => {
           return (
             <div className={styles.comment_box} key={index}>

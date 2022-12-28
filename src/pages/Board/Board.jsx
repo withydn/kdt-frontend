@@ -33,8 +33,8 @@ export default function Board() {
           </div>
         </div>
         <div className={styles.write_btnbox}>
-          <botton className={styles.wrtie_modify}></botton>
-          <botton className={styles.wrtie_delete}></botton>
+          <button className={styles.wrtie_modify}></button>
+          <button className={styles.wrtie_delete}></button>
         </div>
         <div className={styles.comment_box}>
           <span className={styles.comment_writer}>작성자</span>
@@ -48,7 +48,7 @@ export default function Board() {
         </div>
         <div className={styles.comment_write_box}>
           댓글
-          <input type="text" value="내용을 입력해주세요"></input>
+          <input type="text" placeholder="내용을 입력해주세요"></input>
           <button className={styles.comment_push}>전송</button>
         </div>
       </div>

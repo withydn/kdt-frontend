@@ -1,16 +1,75 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./Review.module.css";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faThumbsUp,
+  faRectangleXmark,
+} from "@fortawesome/free-regular-svg-icons";
+import { useSelector } from "react-redux";
+
 export default function ReviewDetail() {
   const { reviewNo } = useParams();
   const [like, setLike] = useState(0);
   const [review, setReview] = useState([]);
+  const [comment, setComment] = useState(false);
+  const commentInput = useRef();
+  const userEmail = useSelector((state) => state.user.userEmail);
+  const isLogin = useSelector((state) => state.user.isLogin);
+
+  const deleteComment = async (author, comment) => {
+    const deleteCommentResponse = await fetch(
+      `http://localhost:4500/review/comment/delete/${reviewNo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          author: author,
+          comment: comment,
+        }),
+      }
+    );
+    if (deleteCommentResponse.status === 200) {
+      const deleteCommentResult = await deleteCommentResponse.json();
+      alert(deleteCommentResult.msg);
+      setComment(!comment);
+    } else {
+      alert("서버 통신 에러");
+    }
+  };
+
+  const postCommnet = async () => {
+    const addCommentResponse = await fetch(
+      `http://localhost:4500/review/comment/add/${reviewNo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          author: userEmail,
+          comment: commentInput.current.value,
+          registerTime: new Date(),
+        }),
+      }
+    );
+    commentInput.current.value = "";
+    if (addCommentResponse.status === 200) {
+      const addCommentResult = await addCommentResponse.json();
+      alert(addCommentResult.msg);
+      setComment(!comment);
+    } else {
+      alert("서버 통신 에러");
+    }
+  };
 
   useEffect(() => {
     fetchReview();
     addCount();
-  }, []);
+  }, [comment]);
 
   async function fetchReview() {
     const reviewRes = await fetch(`http://localhost:4500/review/${reviewNo}`);
@@ -22,12 +81,15 @@ export default function ReviewDetail() {
     }
   }
   async function addLike() {
-    const likeRes = await fetch(`http://localhost:4500/review/addLike/${reviewNo}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const likeRes = await fetch(
+      `http://localhost:4500/review/addLike/${reviewNo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (likeRes.status === 200) {
       const msg = await likeRes.json();
       if (msg === "업데이트 성공") {
@@ -38,12 +100,15 @@ export default function ReviewDetail() {
     }
   }
   async function addCount() {
-    const countRes = await fetch(`http://localhost:4500/review/addCount/${reviewNo}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const countRes = await fetch(
+      `http://localhost:4500/review/addCount/${reviewNo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (countRes.status === 200) {
       const msg = await countRes.json();
       if (msg === "업데이트 문제") {
@@ -65,12 +130,73 @@ export default function ReviewDetail() {
             <span>{review.counts}</span>
           </div>
         </div>
-        <div className={styles.content} dangerouslySetInnerHTML={{ __html: review.content }}></div>
-        <div className={styles.like}>
-          후기가 도움되었나요? <button onClick={() => addLike()}>:+1:</button>
-          {like}
+        <div
+          className={styles.content}
+          dangerouslySetInnerHTML={{ __html: review.content }}
+        ></div>
+        <div className={styles.btn_box}>
+          <div className={styles.like_box}>
+            <h3 className={styles.like_text}>
+              후기가 도움이 되었나요?{" "}
+              <button className={styles.like_btn} onClick={() => addLike()}>
+                <FontAwesomeIcon icon={faThumbsUp} />
+              </button>
+              {like}
+            </h3>
+          </div>
         </div>
+        {/* <div className={styles.like}>
+          후기가 도움되었나요?{" "}
+          <button onClick={() => addLike()}>
+            <FontAwesomeIcon icon={faThumbsUp} />
+          </button>
+          {like}
+        </div> */}
         <br />
+        <div className={styles.write_btnbox}>
+          <button className={styles.write_modify}>수정</button>
+          <button className={styles.write_delete}>삭제</button>
+        </div>
+        {review.comments?.map((el, index) => {
+          return (
+            <div className={styles.comment_box} key={index}>
+              <span className={styles.comment_writer}>{el.author}</span>
+              <span className={styles.comment_write}>{el.comment}</span>
+              <span className={styles.comment_date}>
+                {el.registerTime}
+                {userEmail === el.author && (
+                  <button
+                    className={styles.comment_delete}
+                    onClick={() => deleteComment(el.author, el.comment)}
+                  >
+                    <FontAwesomeIcon icon={faRectangleXmark} />
+                  </button>
+                )}
+              </span>
+            </div>
+          );
+        })}
+        {isLogin && (
+          <div className={styles.comment_write_box}>
+            댓글
+            <input
+              type="text"
+              placeholder="내용을 입력해주세요"
+              ref={commentInput}
+            ></input>
+            <button
+              className={
+                comment.length > 0
+                  ? "submitCommentActive"
+                  : "submitCommentInactive"
+              }
+              onClick={postCommnet}
+            >
+              전송
+            </button>
+          </div>
+        )}
+
         <Link to="/review">
           <button className={styles.btn}>목록</button>
         </Link>

@@ -14,6 +14,7 @@ import Detail from "./pages/Detail/Detail";
 import Review from "./pages/Review/Review";
 import ReviewDetail from "./pages/Review/ReviewDetail";
 import Modify from "./pages/Review/Modify";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           element={<KakaoRedirectHandler />}
         />
       </Routes>
+      <Footer />
     </>
   );
 }

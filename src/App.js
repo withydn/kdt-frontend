@@ -1,5 +1,5 @@
-
 import "./App.css";
+
 import Header from "./components/Header/Header";
 import Main from "./pages/Main/Main";
 import Travel from "./pages/Travel/Travel";
@@ -16,13 +16,11 @@ import Review from "./pages/Review/Review";
 import ReviewDetail from "./pages/Review/ReviewDetail";
 import Modify from "./pages/Review/Modify";
 
-
 function App() {
   return (
     <>
       <Header />
       <Routes>
-
         <Route path="/" element={<Main />} />
         <Route path="/travel" element={<Travel />} />
         <Route path="/festival" element={<Festival />} />
@@ -35,11 +33,7 @@ function App() {
         <Route path="/review/modify/:reviewNo" element={<Modify />}></Route>
         <Route path="/review/:reviewNo" element={<ReviewDetail />} />
         <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/oauth/callback/kakao"
-          element={<KakaoRedirectHandler />}
-        />
-
+        <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler />} />
       </Routes>
     </>
   );

@@ -2,117 +2,142 @@ import React, { useEffect, useState } from 'react';
 import styles from './Travel.module.css';
 import { fetchSigungu } from '../../store/modules/fetchSigungu';
 import { fetchTourList } from '../../store/modules/fetchTourList';
+import { changeAreaCode, changeSigunguCode, changeContentTypeCode } from '../../store/modules/searchInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { BsHeartFill } from 'react-icons/bs';
+
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Paginator from '../../components/Paginator/Paginator';
+import LoadingSpinner from '../../components/LoadingSpinner.jsx/LoadingSpinner';
+import { changeInitState } from '../../store/modules/fetchDetailInfo';
 
 export default function Travel() {
-  const [searchInfo, setSearchInfo] = useState({
-    type: 'areaBasedList',
-    areaCode: '1',
-    sigunguCode: '1',
-    contentCode: '',
-  });
-  const { sigunGuData, loading } = useSelector((state) => state.fetchsigungu);
-  const { tourData } = useSelector((state) => state.fetchTourlist);
+  const { type, areaCode, sigunguCode, contentTypeCode } = useSelector((state) => state.searchInfo);
+  const { tourData, tourLoading } = useSelector((state) => state.fetchTourlist);
+  const { sigunGuData } = useSelector((state) => state.fetchsigungu);
   const dispatch = useDispatch();
+  console.log(tourData);
+  // useEffect(() => {
+  //   setSearchInfo({ ...searchInfo, areaCode: '', sigunguCode: '', contentCode: '' });
+  // }, []);
 
-  useEffect(() => {
-    dispatch(fetchSigungu(searchInfo.areaCode));
-  }, []);
-
-  const handleAreaClick = (area) => {
-    setSearchInfo({ ...searchInfo, areaCode: area.code, sigunguCode: '', contentCode: '' });
-    dispatch(fetchSigungu(area.code));
+  const handleAreaChange = (e) => {
+    dispatch(changeAreaCode(e.target.value));
+    dispatch(fetchSigungu(e.target.value));
   };
 
-  const handleSigunguClick = (sigungu) => {
-    setSearchInfo({ ...searchInfo, sigunguCode: sigungu.code });
+  const handleSigunguChange = (e) => {
+    dispatch(changeSigunguCode(e.target.value));
   };
 
-  const handleContentTypeClick = (contentType) => {
-    setSearchInfo({ ...searchInfo, contentCode: contentType.contentTypeId });
+  const handleContentTypeChange = (e) => {
+    dispatch(changeContentTypeCode(e.target.value));
   };
 
   const handleSearchClick = () => {
-    const { type, areaCode, sigunguCode, contentCode } = searchInfo;
-    dispatch(fetchTourList(type, areaCode, sigunguCode, contentCode));
+    if (areaCode === '' || sigunguCode === '' || contentTypeCode === '') {
+      alert('옵션을 선택해 주세요!');
+    } else {
+      dispatch(fetchTourList(type, areaCode, sigunguCode, contentTypeCode));
+    }
   };
-  console.log(tourData);
+
   return (
     <section className={styles.container}>
-      <h2>지역을 선택하세요</h2>
+      <h2 className={styles.sectionTitle}>지역을 선택하세요</h2>
+      <div className={styles.boxWrapper}>
+        <Box className={styles.areaBox}>
+          <FormControl fullWidth>
+            <InputLabel id='area'>지역</InputLabel>
+            <Select labelId='area' id='areaSelect' label='지역' onChange={handleAreaChange} value={areaCode}>
+              {areaCodes.map((area) => (
+                <MenuItem key={area.name} value={area.code}>
+                  {area.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
 
-      <div className={styles.areaSelectWrapper}>
-        <div className={styles.areaList}>
-          {areaCodes.map((area) => (
-            <div
-              key={area.name}
-              className={`${styles.areaName} ${searchInfo.areaCode === area.code ? styles.active : ''}`}
-              onClick={() => handleAreaClick(area)}
+        <Box className={styles.sigunguBox}>
+          <FormControl fullWidth>
+            <InputLabel id='sigungu'>시군구</InputLabel>
+            <Select
+              labelId='sigungu'
+              id='sigunguSelect'
+              label='시군구'
+              value={sigunguCode}
+              onChange={handleSigunguChange}
             >
-              {area.name}
-            </div>
-          ))}
-        </div>
+              {sigunGuData &&
+                sigunGuData.map((sigungu) => (
+                  <MenuItem key={sigungu.name} value={sigungu.code}>
+                    {sigungu.name}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+        </Box>
 
-        <div className={styles.sigunguList}>
-          {sigunGuData &&
-            sigunGuData.map((sigungu) => (
-              <div
-                key={sigungu.name}
-                className={`${styles.sigunguName} ${searchInfo.sigunguCode === sigungu.code ? styles.active : ''}`}
-                onClick={() => handleSigunguClick(sigungu)}
-              >
-                {sigungu.name}
-              </div>
-            ))}
-        </div>
-
-        <div className={styles.contentList}>
-          {contentTypes.map((contentType) => (
-            <div
-              key={contentType.content}
-              className={`${styles.contentName} ${
-                searchInfo.contentCode === contentType.contentTypeId ? styles.active : ''
-              }`}
-              onClick={() => {
-                handleContentTypeClick(contentType);
-              }}
+        <Box className={styles.contentTypeBox}>
+          <FormControl fullWidth>
+            <InputLabel id='contentType'>유형</InputLabel>
+            <Select
+              labelId='contentType'
+              id='contentTypeSelect'
+              label='유형'
+              value={contentTypeCode}
+              onChange={handleContentTypeChange}
             >
-              {contentType.content}
-            </div>
-          ))}
-        </div>
+              {contentTypes.map((contentType) => (
+                <MenuItem key={contentType.name} value={contentType.code}>
+                  {contentType.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+
+        <button className={styles.searchBtn} onClick={handleSearchClick}>
+          검색하기
+        </button>
       </div>
-      <button onClick={handleSearchClick}>검색하기</button>
 
       <div className={styles.itemList}>
-        {tourData &&
-          tourData.map((data) => (
-            <Link
-              to={`/detail/${data.contentid}`}
-              key={`${data.contentid}`}
-              state={{ contentId: data.contentid }}
-              className={styles.itemWrapper}
-            >
-              <img src={data.firstimage} alt='' className={styles.img} />
-              <div>{data.title}</div>
-              <div>{data.addr1}</div>
-            </Link>
-          ))}
+        {tourLoading && <LoadingSpinner />}
+        {tourData.items?.item?.map((data) => (
+          <Link
+            to={`/detail/${data.contentid}`}
+            key={`${data.contentid}`}
+            state={{ contentId: data.contentid }}
+            className={styles.itemWrapper}
+            onClick={() => dispatch(changeInitState())}
+          >
+            <img src={data.firstimage || 'images/zoom.png'} alt={data.title} className={styles.img} />
+            <div className={styles.title}>{data.title}</div>
+          </Link>
+        ))}
+        {tourData?.totalCount === 0 && <div>없습니다</div>}
       </div>
+
+      {<Paginator numOfRows={tourData?.numOfRows} totalCount={tourData?.totalCount} pageNo={tourData?.pageNo} />}
     </section>
   );
 }
 
 // 컨텐츠 타입
 const contentTypes = [
-  { content: '관광지', contentTypeId: '12' },
-  { content: '문화시설', contentTypeId: '14' },
-  { content: '여행코스', contentTypeId: '25' },
-  { content: '레포츠', contentTypeId: '28' },
-  { content: '쇼핑', contentTypeId: '38' },
-  { content: '음식점', contentTypeId: '39' },
+  { name: '관광지', code: '12' },
+  { name: '문화시설', code: '14' },
+  { name: '여행코스', code: '25' },
+  { name: '레포츠', code: '28' },
+  { name: '쇼핑', code: '38' },
+  { name: '음식점', code: '39' },
 ];
 
 // 도시(서울, 인천, ..)에 대한 코드

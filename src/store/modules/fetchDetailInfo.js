@@ -7,6 +7,7 @@ const initState = {
 const FETCH_DETAILINFO_REQUEST = 'fetchDetailInfo/FETCH_DETAILINFO_REQUEST';
 const FETCH_DETAILINFO_SUCCESS = 'fetchDetailInfo/FETCH_DETAILINFO_SUCCESS';
 const FETCH_DETAILINFO_FAIL = 'fetchDetailInfo/FETCH_DETAILINFO_FAIL';
+const CHANGE_INITSTATE = 'fetchDetailInfo/CHANGE_INITSTATE';
 
 function fetchDetailInfoRequest() {
   return { type: FETCH_DETAILINFO_REQUEST };
@@ -18,6 +19,10 @@ function fetchDetailInfoSuccess(payload) {
 
 function fetchDetailInfoListFail(payload) {
   return { type: FETCH_DETAILINFO_FAIL, payload };
+}
+
+export function changeInitState() {
+  return { type: CHANGE_INITSTATE };
 }
 
 export function fetchDetailInfo(contentId) {
@@ -49,6 +54,9 @@ export default function fetchDetailInfoReducer(state = initState, action) {
 
     case FETCH_DETAILINFO_FAIL:
       return { ...state, infoError: action.payload, infoLoading: false };
+
+    case CHANGE_INITSTATE:
+      return { ...state, infoData: [], infoLoading: false, infoError: '' };
 
     default:
       return state;

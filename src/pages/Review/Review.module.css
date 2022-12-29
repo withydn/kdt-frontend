@@ -68,14 +68,14 @@ table tr td:nth-child(2) {
   height: 400px;
   padding: 30px;
 }
-.like {
+/* .like {
   border: 1px solid black;
   width: 250px;
   border-radius: 20px;
   text-align: center;
   padding: 10px;
   margin: 0 auto;
-}
+} */
 /* ReviewWrite */
 .title_inputbox {
   width: 780px;
@@ -97,4 +97,121 @@ table tr td:nth-child(2) {
 }
 .btn:hover {
   color: azure;
+}
+
+.btn_box {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  top: 90%;
+}
+
+.like_box {
+  position: relative;
+  text-align: center;
+  width: 500px;
+  height: 50px;
+  top: 50px;
+  left: 30%;
+  margin-left: 0 auto;
+  border: 1px solid black;
+  border-radius: 20px;
+}
+
+.like_text {
+  margin-top: 10px;
+}
+
+.like_btn {
+  margin-left: 10px;
+  font-size: 20px;
+  align-items: center;
+}
+/* 수정,삭제 버튼 */
+.write_btnbox {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding-bottom: 30px;
+  border-bottom: 2px solid black;
+}
+.write_modify {
+  background-color: orange;
+  cursor: pointer;
+  display: block;
+  font-size: 18px;
+  line-height: 40px;
+  width: 150px;
+}
+
+.write_delete {
+  background-color: orange;
+  cursor: pointer;
+  display: block;
+  font-size: 18px;
+  line-height: 40px;
+  width: 150px;
+  margin-left: 10px;
+}
+
+/* 댓글 보여주기 */
+
+.comment_box {
+  display: flex;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  margin: 0 auto;
+  border-bottom: 1px solid black;
+}
+
+.comment_writer {
+  width: 20%;
+  height: 50px;
+}
+
+.comment_write {
+  width: 60%;
+  height: 50px;
+}
+
+.comment_date {
+  width: 20%;
+  height: 50px;
+}
+
+.comment_delete {
+  font-size: 1rem;
+  color: red;
+}
+
+.comment_delete:hover {
+  cursor: pointer;
+}
+
+/* 댓글 입력하기 */
+.comment_write_box {
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding: 30px;
+  border-bottom: 1px solid black;
+}
+
+.comment_write_box input {
+  margin-top: -10px;
+  margin-left: 40px;
+  width: 80%;
+  height: 40px;
+}
+
+.comment_push {
+  margin-top: -10px;
+  margin-left: 10px;
+  width: 100px;
+  height: 40px;
+  background-color: orange;
+  color: #fff;
 }

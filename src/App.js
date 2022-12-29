@@ -14,6 +14,7 @@ import KakaoRedirectHandler from "./pages/Login/KakaoRedirectHandeler";
 import Detail from "./pages/Detail/Detail";
 import Review from "./pages/Review/Review";
 import ReviewDetail from "./pages/Review/ReviewDetail";
+import Modify from "./pages/Review/Modify";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/detail/:contentId" element={<Detail />} />
         <Route path="/review/write" element={<Write />} />
         <Route path="/review" element={<Review />} />
+        <Route path="/review/modify/:reviewNo" element={<Modify />}></Route>
         <Route path="/review/:reviewNo" element={<ReviewDetail />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler />} />

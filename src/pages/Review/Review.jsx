@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styles from "./Review.module.css";
+
 export default function Review() {
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
+
+  const isLogin = useSelector((state) => state.user.isLogin);
+
   useEffect(() => {
     fetchAllReview();
   }, []);
+
   async function fetchAllReview() {
     const reviewRes = await fetch("http://localhost:4500/review/getAll");
     if (reviewRes.status === 200) {
@@ -64,6 +71,16 @@ export default function Review() {
   //   const allReviews = await reviewResponse.json();
   //   setReviews(allReviews);
   // }
+
+  const handleWriteClick = () => {
+    if (isLogin) {
+      navigate("/review/write");
+    } else {
+      alert("로그인을 해주세요");
+      navigate("/login");
+    }
+  };
+
   return (
     <div className={styles.wrap}>
       <h3 className={styles.title}>여행 후기 게시판</h3>
@@ -97,11 +114,14 @@ export default function Review() {
           );
         })}
       </table>
-      <Link to="write">
-        <button className={styles.btn} onClick={() => addCounts()}>
-          글쓰기
-        </button>
-      </Link>
+
+      {isLogin && (
+        <Link to="write">
+          <button className={styles.btn} onClick={() => addCounts()}>
+            글쓰기
+          </button>
+        </Link>
+      )}
     </div>
   );
 }

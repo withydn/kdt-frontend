@@ -1,14 +1,30 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Editor from "./Editor";
 import styles from "./Write.module.css";
 
-export default function Write() {
+export default function Modify() {
+  const { reviewNo } = useParams();
   const itemInput = useRef();
   const titleInput = useRef();
   let textareaInput = "";
   const navigate = useNavigate();
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    fetchReview();
+  }, []);
+
+  async function fetchReview() {
+    const reviewRes = await fetch(`http://localhost:4500/review/${reviewNo}`);
+    if (reviewRes.status === 200) {
+      const data = await reviewRes.json();
+      itemInput.current.value = data.item;
+      titleInput.current.value = data.title;
+      setContent(data.content);
+    }
+  }
 
   const userEmail = useSelector((state) => state.user.userEmail);
 
@@ -17,20 +33,32 @@ export default function Write() {
   }
 
   async function post() {
-    const postInfo = {
+    textareaInput === ""
+      ? (textareaInput = content)
+      : (textareaInput = textareaInput);
+
+    const modifyInfo = {
       item: itemInput.current.value,
       title: titleInput.current.value,
       content: textareaInput,
       email: userEmail,
     };
-    if (postInfo.item !== "" && postInfo.title !== "" && postInfo.content) {
-      const postResponse = await fetch("http://localhost:4500/review/write", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(postInfo),
-      });
+
+    if (
+      modifyInfo.item !== "" &&
+      modifyInfo.title !== "" &&
+      modifyInfo.content
+    ) {
+      const postResponse = await fetch(
+        `http://localhost:4500/review/modify/${reviewNo}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(modifyInfo),
+        }
+      );
       if (postResponse.status === 200) {
         const result = await postResponse.json();
         if (result.result) {
@@ -89,7 +117,7 @@ export default function Write() {
         <div className={styles.review_box}>
           <div className={styles.review_name}>*내용</div>
           <div className={styles.review_input}>
-            <Editor onChange={onEditorChange} />
+            <Editor onChange={onEditorChange} value={content} />
           </div>
         </div>
         <div className={styles.btn_box}>

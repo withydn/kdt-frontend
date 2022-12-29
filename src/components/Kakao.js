@@ -6,7 +6,7 @@ export default function Kakao({ Lat, Lng }) {
     const container = document.getElementById('map');
     const options = {
       center: new kakao.maps.LatLng(Lat, Lng),
-      level: 3,
+      level: 4,
     };
     const map = new kakao.maps.Map(container, options);
 
@@ -25,5 +25,5 @@ export default function Kakao({ Lat, Lng }) {
     // marker.setMap(null);
   }, []);
 
-  return <div id='map' style={{ width: '800px', height: '400px' }}></div>;
+  return <div id='map' style={{ width: '300px', height: '200px' }}></div>;
 }

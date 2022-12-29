@@ -9,6 +9,7 @@ import LoadingSpinner from '../../components/LoadingSpinner.jsx/LoadingSpinner';
 export default function Detail() {
   const { infoData, infoLoading } = useSelector((state) => state.fetchDetailInfo);
   const { userEmail } = useSelector((state) => state.user);
+  const { isLogin } = useSelector((state) => state.user);
   const { state } = useLocation();
   const dispatch = useDispatch();
 
@@ -35,7 +36,10 @@ export default function Detail() {
         setSubscribe(result.msg);
       }
     };
-    fetchIsCheck();
+
+    if (isLogin) {
+      fetchIsCheck();
+    }
   }, []);
 
   const fetchLike = async () => {
@@ -53,22 +57,33 @@ export default function Detail() {
       setSubscribe(result.msg);
     }
   };
-
+  console.log(infoData);
   return (
     <section className={styles.container}>
+      <h2>{infoData[0]?.title}</h2>
       {infoLoading && <LoadingSpinner />}
-      {infoData &&
-        infoData?.map((data) => (
-          <div key={data.contentid}>
-            <img src={data.firstimage} alt={data.title} />
-            <div>{data.title}</div>
-            <div dangerouslySetInnerHTML={{ __html: data.homepage }} />
-            <div>{data.addr1}</div>
-            <div dangerouslySetInnerHTML={{ __html: data.overview }} />
-            <button onClick={() => fetchLike()}>{subscribe}</button>
-            <Kakao Lat={data.mapy} Lng={data.mapx} />
+      {infoData?.map((data) => (
+        <div key={data.contentid}>
+          <div className={styles.infoWrapper}>
+            <img className={styles.image} src={data.firstimage || '/images/zoom.png'} alt={data.title} />
+            <div className={styles.text}>
+              <p>정보</p>
+
+              <div className={styles.test} dangerouslySetInnerHTML={{ __html: data.overview }} />
+              {}
+              {data.homepage && (
+                <>
+                  <div>홈페이지</div>
+                  <div dangerouslySetInnerHTML={{ __html: data.homepage }} />
+                </>
+              )}
+            </div>
           </div>
-        ))}
+          <div>{data.addr1}</div>
+          {isLogin && <button onClick={() => fetchLike()}>{subscribe}</button>}
+          <Kakao Lat={data.mapy} Lng={data.mapx} />
+        </div>
+      ))}
     </section>
   );
 }

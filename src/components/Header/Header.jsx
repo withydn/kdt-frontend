@@ -12,7 +12,7 @@ export default function Header() {
     <header className={styles.header}>
       <h1 className={styles.logo}>
         <Link to='/' className={styles.logoText}>
-          LOGO
+          앞다투어
         </Link>
       </h1>
 
@@ -53,3 +53,8 @@ export default function Header() {
     </header>
   );
 }
+
+// 푸라닭
+// 여기어때
+// 강원교육
+// 생거진천체

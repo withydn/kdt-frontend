@@ -4,13 +4,23 @@
   padding: var(--padding-layout);
   color: var(--color-text);
   margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+
   /* background-color: aquamarine; */
+}
+
+.sectionTitle {
+  align-self: start;
 }
 
 /*  */
 .boxWrapper {
   display: flex;
   gap: 20px;
+  align-self: start;
 }
 
 .areaBox {

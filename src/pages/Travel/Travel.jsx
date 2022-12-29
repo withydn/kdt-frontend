@@ -49,7 +49,7 @@ export default function Travel() {
 
   return (
     <section className={styles.container}>
-      <h2>지역을 선택하세요</h2>
+      <h2 className={styles.sectionTitle}>지역을 선택하세요</h2>
       <div className={styles.boxWrapper}>
         <Box className={styles.areaBox}>
           <FormControl fullWidth>
@@ -123,9 +123,9 @@ export default function Travel() {
           </Link>
         ))}
         {tourData?.totalCount === 0 && <div>없습니다</div>}
-
-        {<Paginator numOfRows={tourData?.numOfRows} totalCount={tourData?.totalCount} pageNo={tourData?.pageNo} />}
       </div>
+
+      {<Paginator numOfRows={tourData?.numOfRows} totalCount={tourData?.totalCount} pageNo={tourData?.pageNo} />}
     </section>
   );
 }

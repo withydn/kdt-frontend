@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './Paginator.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTourList } from '../../store/modules/fetchTourList';
+import { FcNext, FcPrevious } from 'react-icons/fc';
 
 export default function Paginator({ totalCount, pageNo }) {
   const { type, areaCode, sigunguCode, contentTypeCode } = useSelector((state) => state.searchInfo);
@@ -35,7 +36,11 @@ export default function Paginator({ totalCount, pageNo }) {
 
   return (
     <div className={styles.pagination}>
-      {totalCount && <div onClick={handlePrevClick}>이전</div>}
+      {totalCount && pageIndex !== startPageIndex && (
+        <div className={styles.iconWrapper} onClick={handlePrevClick}>
+          <FcPrevious className={styles.icons} />
+        </div>
+      )}
       {pagination.map((el) => (
         <div
           onClick={() => handleClick(el)}
@@ -45,7 +50,11 @@ export default function Paginator({ totalCount, pageNo }) {
           {el}
         </div>
       ))}
-      {totalCount && <div onClick={handleNextClick}>다음</div>}
+      {totalCount && pageIndex !== lastPageIndex && (
+        <div className={styles.iconWrapper} onClick={handleNextClick}>
+          <FcNext className={styles.icons} />
+        </div>
+      )}
     </div>
   );
 }

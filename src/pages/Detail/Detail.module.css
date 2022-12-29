@@ -1,0 +1,16 @@
+.container {
+  position: relative;
+  width: 100%;
+  padding: var(--padding-layout);
+  color: var(--color-text);
+  background-color: antiquewhite;
+}
+
+.infoWrapper {
+  display: flex;
+}
+
+.test {
+  font-family: 'Cafe24Simplehae';
+  font-size: 1.2rem;
+}

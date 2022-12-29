@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import styles from "./Review.module.css";
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import styles from './Review.module.css';
 
 export default function Review() {
-  const { isLogin } = useSelector((state) => state.user);
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
 
   const isLogin = useSelector((state) => state.user.isLogin);
 
@@ -24,21 +24,18 @@ export default function Review() {
   const { reviewNo } = useParams();
   const [count, setCount] = useState(0);
   async function addCounts() {
-    const countRes = await fetch(
-      `http://localhost:4500/review/addCounts/${reviewNo}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const countRes = await fetch(`http://localhost:4500/review/addCounts/${reviewNo}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     if (countRes.status === 200) {
       const msg = await countRes.json();
-      if (msg === "업데이트 성공") {
+      if (msg === '업데이트 성공') {
         setCount(count + 1);
       } else {
-        alert("업데이트 문제");
+        alert('업데이트 문제');
       }
     }
   }
@@ -113,15 +110,13 @@ export default function Review() {
         })}
       </table>
 
-
       {isLogin && (
-        <Link to="write">
+        <Link to='write'>
           <button className={styles.btn} onClick={() => addCounts()}>
             글쓰기
           </button>
         </Link>
       )}
-
     </div>
   );
 }

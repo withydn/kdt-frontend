@@ -5,6 +5,7 @@ import { fetchTourList } from '../../store/modules/fetchTourList';
 import { changeAreaCode, changeSigunguCode, changeContentTypeCode } from '../../store/modules/searchInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { BsHeartFill } from 'react-icons/bs';
 
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,7 +21,7 @@ export default function Travel() {
   const { tourData, tourLoading } = useSelector((state) => state.fetchTourlist);
   const { sigunGuData } = useSelector((state) => state.fetchsigungu);
   const dispatch = useDispatch();
-
+  console.log(tourData);
   // useEffect(() => {
   //   setSearchInfo({ ...searchInfo, areaCode: '', sigunguCode: '', contentCode: '' });
   // }, []);
@@ -117,9 +118,8 @@ export default function Travel() {
             className={styles.itemWrapper}
             onClick={() => dispatch(changeInitState())}
           >
-            <img src={data.firstimage || 'images/zoom.png'} alt='' className={styles.img} />
-            <div>{data.title}</div>
-            <div>{data.addr1}</div>
+            <img src={data.firstimage || 'images/zoom.png'} alt={data.title} className={styles.img} />
+            <div className={styles.title}>{data.title}</div>
           </Link>
         ))}
         {tourData?.totalCount === 0 && <div>없습니다</div>}

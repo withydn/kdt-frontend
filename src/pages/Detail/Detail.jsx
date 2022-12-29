@@ -18,6 +18,26 @@ export default function Detail() {
 
   const [subscribe, setSubscribe] = useState();
 
+  useEffect(() => {
+    const fetchIsCheck = async () => {
+      const loginInfo = { email: userEmail, contentId: state.contentId };
+      const loginResponse = await fetch('http://localhost:4500/addLike/isCheck', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginInfo),
+      });
+
+      if (loginResponse.status === 200) {
+        const result = await loginResponse.json();
+        console.log(result.msg);
+        setSubscribe(result.msg);
+      }
+    };
+    fetchIsCheck();
+  }, []);
+
   const fetchLike = async () => {
     const loginInfo = { email: userEmail, contentId: state.contentId };
     const loginResponse = await fetch('http://localhost:4500/addLike', {
@@ -30,7 +50,6 @@ export default function Detail() {
 
     if (loginResponse.status === 200) {
       const result = await loginResponse.json();
-      console.log(result.msg);
       setSubscribe(result.msg);
     }
   };
@@ -41,7 +60,7 @@ export default function Detail() {
       {infoData &&
         infoData?.map((data) => (
           <div key={data.contentid}>
-            <img src={data.firstimage} alt='' />
+            <img src={data.firstimage} alt={data.title} />
             <div>{data.title}</div>
             <div dangerouslySetInnerHTML={{ __html: data.homepage }} />
             <div>{data.addr1}</div>

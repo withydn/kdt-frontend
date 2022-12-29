@@ -65,7 +65,7 @@ table tr td:nth-child(2) {
 }
 /* ReviewDetail */
 .content {
-  height: 400px;
+  height: auto;
   padding: 30px;
 }
 /* .like {
@@ -87,16 +87,17 @@ table tr td:nth-child(2) {
   margin: 10px 0;
 }
 .btn {
-  background-color: orange;
+  background-color: gray;
   cursor: pointer;
   display: block;
   font-size: 18px;
   line-height: 40px;
   width: 150px;
   margin: 10px auto;
+  color: #fff;
 }
 .btn:hover {
-  color: azure;
+  background-color: darkgray;
 }
 
 .btn_box {

@@ -15,6 +15,7 @@ import Detail from "./pages/Detail/Detail";
 import Review from "./pages/Review/Review";
 import ReviewDetail from "./pages/Review/ReviewDetail";
 import Modify from "./pages/Review/Modify";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler />} />
       </Routes>
+      <Footer />
     </>
   );
 }

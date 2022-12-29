@@ -213,11 +213,11 @@ export default function ReviewDetail() {
               ref={commentInput}
             ></input>
             <button
-              className={
+              className={`${styles.comment_push} ${
                 comment.length > 0
-                  ? "submitCommentActive"
-                  : "submitCommentInactive"
-              }
+                  ? styles.submitCommentActive
+                  : styles.submitCommentInactive
+              }`}
               onClick={postCommnet}
             >
               전송

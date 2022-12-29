@@ -1,3 +1,7 @@
+* {
+  font-family: "Cafe24Simplehae";
+}
+
 ul,
 ol {
   list-style: none;
@@ -14,21 +18,42 @@ ol {
   padding-bottom: 10px;
   display: block;
   font-size: 32px;
-  font-weight: 400;
+  font-weight: 700;
   border-bottom: 2px solid #777;
   margin: 40px 0;
 }
 .title2 {
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 18px;
+  height: 40px;
+  text-align: center;
+  font-weight: 700;
   border-bottom: 2px solid black;
-  padding: 15px 0;
   display: flex;
-  justify-content: space-around;
 }
-.title3 {
-  display: flex;
-  justify-content: space-evenly;
+
+.item_box {
+  width: 10%;
+  margin-top: -10px;
+}
+
+.title_box {
+  width: 45%;
+  margin-top: -10px;
+}
+
+.author_box {
+  width: 15%;
+  margin-top: -10px;
+}
+
+.registerTime_box {
+  width: 20%;
+  margin-top: -10px;
+}
+
+.counts_box {
+  width: 10%;
+  margin-top: -10px;
 }
 
 p {
@@ -41,13 +66,18 @@ table {
   width: 100%;
 }
 
+.listClick:hover {
+  cursor: pointer;
+  font-weight: 700;
+}
+
 table th {
   font-weight: bold;
   height: 50px;
   line-height: 50px;
   vertical-align: top;
   border-bottom: 1px solid #e1e1e1;
-  background-color: #ddd;
+  background-color: #ffc72c;
 }
 table thead tr:hover {
   background-color: none;
@@ -61,7 +91,7 @@ table td {
   border-bottom: 1px solid #e1e1e1;
 }
 table tr td:nth-child(2) {
-  text-align: left;
+  text-align: center;
 }
 /* ReviewDetail */
 .content {

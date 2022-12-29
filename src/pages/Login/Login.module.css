@@ -5,8 +5,9 @@
   color: var(--color-text);
   background-color: white;
   display: flex;
-  position: absolute;
+  position: relative;
   align-items: center;
+  font-family: "Cafe24Simplehae";
 }
 /* 로그인 컨테이너 */
 .login_box {

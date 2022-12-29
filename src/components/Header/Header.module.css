@@ -1,7 +1,7 @@
 .header {
   top: 0;
   width: 100%;
-  height: 70px;
+  height: 80px;
   padding: var(--padding-layout);
   display: flex;
   align-items: center;
@@ -14,7 +14,7 @@
 
 .logoText {
   color: var(--color-text);
-  font-family: 'PuradakGentleGothicR';
+  font-family: "PuradakGentleGothicR";
   /* font-family: 'yg-jalnan'; */
   /* font-family: 'SaenggeoJincheon'; */
   /* font-family: 'GangwonEduPowerExtraBoldA'; */
@@ -32,5 +32,5 @@
   color: var(--color-text);
   padding: 0.3rem 0.6rem;
   cursor: pointer;
-  font-family: 'MaplestoryOTFBold';
+  font-family: "MaplestoryOTFBold";
 }

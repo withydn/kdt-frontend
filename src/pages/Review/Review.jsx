@@ -24,12 +24,15 @@ export default function Review() {
   const { reviewNo } = useParams();
   const [count, setCount] = useState(0);
   async function addCounts() {
-    const countRes = await fetch(`http://localhost:4500/review/addCounts/${reviewNo}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const countRes = await fetch(
+      `http://localhost:4500/review/addCounts/${reviewNo}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (countRes.status === 200) {
       const msg = await countRes.json();
       if (msg === "업데이트 성공") {
@@ -89,8 +92,9 @@ export default function Review() {
         <thead>
           <tr>
             <th style={{ width: "100px" }}>번호</th>
-            <th style={{ width: "450px" }}>제목</th>
-            <th style={{ width: "180px" }}>작성자</th>
+            <th style={{ width: "100px" }}>지역</th>
+            <th style={{ width: "350px" }}>제목</th>
+            <th style={{ width: "180px" }}>회원E-mail</th>
             <th style={{ width: "180px" }}>등록일</th>
             <th style={{ width: "150px" }}>조회수</th>
             <th style={{ width: "150px" }}>추천수</th>
@@ -100,13 +104,16 @@ export default function Review() {
         {reviews.map((el) => {
           return (
             <tbody>
-              <tr key={el.no}>
+              <tr
+                key={el.no}
+                onClick={() => navigate(`${el.no}`)}
+                className={styles.listClick}
+              >
                 <td>{el.no}</td>
-                <td>
-                  <Link to={`${el.no}`}>{el.title}</Link>
-                </td>
+                <td>{el.item}</td>
+                <td>{el.title}</td>
                 <td>{el.author}</td>
-                <td>{el.registerTime}</td>
+                <td>{el.registerTime.substring(0, 10)}</td>
                 <td>{el.counts}</td>
                 <td>{el.like}</td>
               </tr>

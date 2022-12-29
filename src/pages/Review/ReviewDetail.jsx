@@ -19,6 +19,18 @@ export default function ReviewDetail() {
   const isLogin = useSelector((state) => state.user.isLogin);
   const navigate = useNavigate();
 
+  // let year = review.registerTime.getFullYear(); // 년도
+  // let month = review.registerTime.getMonth() + 1; // 월 => +1 하는 이유는 월이 0부터 시작하기 때문
+  // let date = review.registerTime.getDate(); // 일
+
+  // // month가 10보다 작으면 문자 '0'을 추가하는 코드
+  // month = month >= 10 ? month : "0" + month;
+
+  // // date가 10보다 작으면 문자'0'을 추가하는 코드
+  // date = date >= 10 ? date : "0" + date;
+
+  // let selectDate = `${year}년 ${month}월 ${date}일`;
+
   const deleteComment = async (author, comment) => {
     const deleteCommentResponse = await fetch(
       `http://localhost:4500/review/comment/delete/${reviewNo}`,
@@ -142,12 +154,13 @@ export default function ReviewDetail() {
       <div className={styles.wrap}>
         <h3 className={styles.title}>나의 여행기</h3>
         <div className={styles.title2}>
-          <span>{review.title}</span>
-          <div className={styles.title3}>
-            <span>{review.author}</span>
-            <span>{review.registerTime}</span>
-            <span>{review.counts}</span>
-          </div>
+          <span className={styles.item_box}>{review.item}</span>
+          <span className={styles.title_box}>{review.title}</span>
+          <span className={styles.author_box}>{review.author}</span>
+          <span className={styles.registerTime_box}>
+            {review.registerTime?.substring(0, 10)}
+          </span>
+          <span className={styles.counts_box}>{review.counts}</span>
         </div>
         <div
           className={styles.content}

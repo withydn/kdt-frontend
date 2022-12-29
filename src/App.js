@@ -1,4 +1,5 @@
 import "./App.css";
+
 import Header from "./components/Header/Header";
 import Main from "./pages/Main/Main";
 import Travel from "./pages/Travel/Travel";
@@ -30,10 +31,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/review/:reviewNo" element={<ReviewDetail />} />
         <Route path="/signup" element={<Signup />} />
-        <Route
-          path="/oauth/callback/kakao"
-          element={<KakaoRedirectHandler />}
-        />
+        <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler />} />
       </Routes>
     </>
   );

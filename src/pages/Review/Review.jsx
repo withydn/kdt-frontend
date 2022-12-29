@@ -69,34 +69,39 @@ export default function Review() {
       <h3 className={styles.title}>여행 후기 게시판</h3>
       <p>총 {reviews.length}건</p>
       <table>
-        <tr>
-          <th style={{ width: "100px" }}>번호</th>
-          <th style={{ width: "450px" }}>제목</th>
-          <th style={{ width: "180px" }}>작성자</th>
-          <th style={{ width: "180px" }}>등록일</th>
-          <th style={{ width: "150px" }}>조회수</th>
-          <th style={{ width: "150px" }}>추천수</th>
-        </tr>
+        <thead>
+          <tr>
+            <th style={{ width: "100px" }}>번호</th>
+            <th style={{ width: "450px" }}>제목</th>
+            <th style={{ width: "180px" }}>작성자</th>
+            <th style={{ width: "180px" }}>등록일</th>
+            <th style={{ width: "150px" }}>조회수</th>
+            <th style={{ width: "150px" }}>추천수</th>
+          </tr>
+        </thead>
+
         {reviews.map((el) => {
           return (
-            <tr key={el.no}>
-              <td>{el.no}</td>
-              <td>
-                <Link to={`${el.no}`}>{el.title}</Link>
-              </td>
-              <td>{el.author}</td>
-              <td>{el.registerTime}</td>
-              <td>{el.counts}</td>
-              <td>{el.like}</td>
-            </tr>
+            <tbody>
+              <tr key={el.no}>
+                <td>{el.no}</td>
+                <td>
+                  <Link to={`${el.no}`}>{el.title}</Link>
+                </td>
+                <td>{el.author}</td>
+                <td>{el.registerTime}</td>
+                <td>{el.counts}</td>
+                <td>{el.like}</td>
+              </tr>
+            </tbody>
           );
         })}
       </table>
-<Link to="write">
-      <button className={styles.btn} onClick={() => addCounts()}>
-        글쓰기
-      </button></Link>
-
+      <Link to="write">
+        <button className={styles.btn} onClick={() => addCounts()}>
+          글쓰기
+        </button>
+      </Link>
     </div>
   );
 }

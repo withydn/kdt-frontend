@@ -3,12 +3,14 @@ const initState = {
   areaCode: '',
   sigunguCode: '',
   contentTypeCode: '',
+  date: '',
 };
 
 const CHANGE_TYPE = 'searchInfo/CHANGE_TYPE';
 const CHAGNE_AREACODE = 'searchInfo/CHAGNE_AREACODE';
 const CHAGNE_SIGUNGUCODE = 'searchInfo/CHAGNE_SIGUNGUCODE ';
 const CHAGNE_CONTENTTYPECODE = 'searchInfo/CHAGNE_CONTENTTYPECODE ';
+const CHANGE_DATE = 'searchInfo/CHANGE_DATE';
 
 export function changeType(payload) {
   return { type: CHANGE_TYPE, payload };
@@ -24,6 +26,10 @@ export function changeSigunguCode(payload) {
 
 export function changeContentTypeCode(payload) {
   return { type: CHAGNE_CONTENTTYPECODE, payload };
+}
+
+export function changeDate(payload) {
+  return { type: CHANGE_DATE, payload };
 }
 
 export default function searchInfoReducer(state = initState, action) {
@@ -46,6 +52,9 @@ export default function searchInfoReducer(state = initState, action) {
 
     case CHAGNE_CONTENTTYPECODE:
       return { ...state, contentTypeCode: action.payload };
+
+    case CHANGE_DATE:
+      return { ...state, date: action.payload };
 
     default:
       return state;

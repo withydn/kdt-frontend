@@ -5,7 +5,6 @@ import { fetchTourList } from '../../store/modules/fetchTourList';
 import { changeAreaCode, changeSigunguCode, changeContentTypeCode } from '../../store/modules/searchInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { BsHeartFill } from 'react-icons/bs';
 
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -22,9 +21,6 @@ export default function Travel() {
   const { sigunGuData } = useSelector((state) => state.fetchsigungu);
   const dispatch = useDispatch();
   console.log(tourData);
-  // useEffect(() => {
-  //   setSearchInfo({ ...searchInfo, areaCode: '', sigunguCode: '', contentCode: '' });
-  // }, []);
 
   const handleAreaChange = (e) => {
     dispatch(changeAreaCode(e.target.value));
@@ -49,7 +45,7 @@ export default function Travel() {
 
   return (
     <section className={styles.container}>
-      <h2 className={styles.sectionTitle}>지역을 선택하세요</h2>
+      <h2 className={styles.sectionTitle}>여행 지역을 선택하세요</h2>
       <div className={styles.boxWrapper}>
         <Box className={styles.areaBox}>
           <FormControl fullWidth>

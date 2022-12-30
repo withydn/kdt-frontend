@@ -16,9 +16,10 @@ import Select from '@mui/material/Select';
 import Paginator from '../../components/Paginator/Paginator';
 import LoadingSpinner from '../../components/LoadingSpinner.jsx/LoadingSpinner';
 import { changeInitState } from '../../store/modules/fetchDetailInfo';
+import FestivalPaginator from '../../components/Paginator/FestivalPaginator';
 
 export default function Festival() {
-  const { type, areaCode, sigunguCode, date } = useSelector((state) => state.searchInfo);
+  const { areaCode, sigunguCode, date } = useSelector((state) => state.searchInfo);
   const { festivalData, festivalLoading } = useSelector((state) => state.fetchFestival);
   const { sigunGuData } = useSelector((state) => state.fetchsigungu);
   const dispatch = useDispatch();
@@ -117,10 +118,11 @@ export default function Festival() {
       </div>
 
       {
-        <Paginator
+        <FestivalPaginator
           numOfRows={festivalData?.numOfRows}
           totalCount={festivalData?.totalCount}
           pageNo={festivalData?.pageNo}
+          date={date}
         />
       }
     </section>

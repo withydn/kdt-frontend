@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from './Paginator.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTourList } from '../../store/modules/fetchTourList';
+import { fetchFestival } from '../../store/modules/fetchFestival';
 import { FcNext, FcPrevious } from 'react-icons/fc';
 
-export default function Paginator({ totalCount, pageNo }) {
-  const { areaCode, sigunguCode, contentTypeCode } = useSelector((state) => state.searchInfo);
+export default function FestivalPaginator({ totalCount, pageNo, date }) {
+  const { type, areaCode, sigunguCode, contentTypeCode } = useSelector((state) => state.searchInfo);
   const [pageIndex, setPageIndex] = useState(0);
   const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ export default function Paginator({ totalCount, pageNo }) {
   };
 
   const handleClick = (el) => {
-    dispatch(fetchTourList('areaBasedList', areaCode, sigunguCode, contentTypeCode, el));
+    dispatch(fetchFestival('searchFestival', areaCode, sigunguCode, date, el));
   };
 
   return (

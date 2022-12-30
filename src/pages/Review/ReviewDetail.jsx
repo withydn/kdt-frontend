@@ -204,7 +204,7 @@ export default function ReviewDetail() {
               <span className={styles.comment_writer}>{el.author}</span>
               <span className={styles.comment_write}>{el.comment}</span>
               <span className={styles.comment_date}>
-                {el.registerTime}
+                {el.registerTime?.substring(0, 10)}
                 {userEmail === el.author && (
                   <button
                     className={styles.comment_delete}

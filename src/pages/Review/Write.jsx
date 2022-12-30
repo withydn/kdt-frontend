@@ -7,7 +7,6 @@ import styles from "./Write.module.css";
 export default function Write() {
   const itemInput = useRef();
   const titleInput = useRef();
-  const nameInput = useRef();
   let textareaInput = "";
   const navigate = useNavigate();
 

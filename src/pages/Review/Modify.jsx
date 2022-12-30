@@ -122,7 +122,7 @@ export default function Modify() {
         </div>
         <div className={styles.btn_box}>
           <button className={styles.btn_push} onClick={() => post()}>
-            글쓰기
+            수정하기
           </button>
           <Link to="/review">
             <button className={styles.btn_cancel}>취소하기</button>

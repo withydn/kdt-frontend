@@ -179,6 +179,9 @@
 
 .homepage {
   color: black;
+  width: 300px;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 a {
@@ -212,6 +215,7 @@ a {
 
 .timeLineLikeContainer {
   position: relative;
+  width: 100px;
   margin-bottom: 40px;
 }
 
@@ -233,6 +237,7 @@ a {
   display: block;
   position: absolute;
   left: -10px;
+  top: 15px;
   transform: rotate(45deg);
   border: 1px solid #c9c9c9;
   border-top: 0;

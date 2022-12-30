@@ -13,6 +13,7 @@ export default function Detail() {
   const { isLogin } = useSelector((state) => state.user);
   const { state } = useLocation();
   const dispatch = useDispatch();
+  console.log(state);
 
   useEffect(() => {
     dispatch(fetchDetailInfo(state.contentId));
@@ -77,6 +78,12 @@ export default function Detail() {
               <div className={styles.timeLinebody}>
                 <h4 className={styles.timeLineTitle}>{data.title}</h4>
                 <p className={styles.timeLineOverview} dangerouslySetInnerHTML={{ __html: data.overview }} />
+                {state.eventstartdate && (
+                  <div className={styles.timeLineOverview}>
+                    기간 : {state.eventstartdate} ~ {state.eventenddate}
+                  </div>
+                )}
+                {state.tel && <div className={styles.timeLineOverview}>tel : {state.tel}</div>}
               </div>
             </div>
 
@@ -117,7 +124,7 @@ export default function Detail() {
                     </h4>
                   ) : (
                     <h4 className={styles.timeLineLikebtn} onClick={() => alert('로그인을 해주세요!')}>
-                      123
+                      구독하기
                     </h4>
                   )}
                 </div>

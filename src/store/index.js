@@ -7,6 +7,8 @@ import fetchByDistanceReducer from './modules/fetchByDistance';
 import thunk from 'redux-thunk';
 import userReducer from './modules/users';
 import fetchDetailInfoReducer from './modules/fetchDetailInfo';
+import fetchFestivalReducer from './modules/fetchFestival';
+import fetchAccommodationReducer from './modules/fetchAccommodation';
 
 const rootReducer = combineReducers({
   searchInfo: searchInfoReducer,
@@ -14,6 +16,8 @@ const rootReducer = combineReducers({
   fetchTourlist: fetchTourListReducer,
   fetchByDistance: fetchByDistanceReducer,
   fetchDetailInfo: fetchDetailInfoReducer,
+  fetchFestival: fetchFestivalReducer,
+  fetchAccommodation: fetchAccommodationReducer,
   user: userReducer,
 });
 

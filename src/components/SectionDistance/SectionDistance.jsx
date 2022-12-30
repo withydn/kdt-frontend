@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import styles from './SectionDistance.module.css';
 import useGeolocation from '../useGeolocation';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 export default function SectionDistance() {
   const [slide, setSlide] = useState(0);
   const [distanceData, loading, error] = useGeolocation();
+  const navigate = useNavigate();
 
   const getCarouselStyle = () => {
     return {
@@ -37,10 +39,11 @@ export default function SectionDistance() {
         <div className={styles.itemImage}></div>
         <div className={styles.itemSlides}>
           <div className={styles.carousel} style={getCarouselStyle()}>
+            {loading && <div className={styles.loading}>l</div>}
             {distanceData &&
               distanceData.map((el) => (
                 <div className={styles.item} key={el.title}>
-                  <img className={styles.img} src={el.firstimage || el.firstimage2} alt={el.title} />
+                  <img className={styles.img} src={el.firstimage || 'images/gray.jpg'} alt={el.title} />
                   <div>
                     <div className={styles.title}>{el.title}</div>
                     <div className={styles.addr}>
@@ -53,12 +56,16 @@ export default function SectionDistance() {
                 </div>
               ))}
           </div>
-          <span className={styles.next} onClick={handleNextClick}>
-            <MdKeyboardArrowRight className={styles.icons} />
-          </span>
-          <span className={styles.prev} onClick={handlePrevClick}>
-            <MdKeyboardArrowLeft className={styles.icons} />
-          </span>
+          {distanceData && slide !== distanceData.length - 3 && (
+            <span className={styles.next} onClick={handleNextClick}>
+              <MdKeyboardArrowRight className={styles.icons} />
+            </span>
+          )}
+          {distanceData && slide !== 0 && (
+            <span className={styles.prev} onClick={handlePrevClick}>
+              <MdKeyboardArrowLeft className={styles.icons} />
+            </span>
+          )}
         </div>
       </div>
     </section>

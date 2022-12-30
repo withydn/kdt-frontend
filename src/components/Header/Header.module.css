@@ -14,7 +14,7 @@
 
 .logoText {
   color: var(--color-text);
-  font-family: "PuradakGentleGothicR";
+  font-family: 'PuradakGentleGothicR';
   /* font-family: 'yg-jalnan'; */
   /* font-family: 'SaenggeoJincheon'; */
   /* font-family: 'GangwonEduPowerExtraBoldA'; */
@@ -35,11 +35,11 @@
   display: block;
   padding: 1vw 1vw 1vw;
   position: relative;
-  font-family: "MaplestoryOTFBold";
+  font-family: 'MaplestoryOTFBold';
 }
 
 .navItem::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   bottom: 0;

@@ -15,6 +15,7 @@ import Select from '@mui/material/Select';
 import Paginator from '../../components/Paginator/Paginator';
 import LoadingSpinner from '../../components/LoadingSpinner.jsx/LoadingSpinner';
 import { changeInitState } from '../../store/modules/fetchDetailInfo';
+import AccommodationPaginator from '../../components/Paginator/AccommodationPaginator';
 
 export default function Accommodation() {
   const { areaCode, sigunguCode } = useSelector((state) => state.searchInfo);
@@ -100,7 +101,7 @@ export default function Accommodation() {
       </div>
 
       {
-        <Paginator
+        <AccommodationPaginator
           numOfRows={accommoData?.numOfRows}
           totalCount={accommoData?.totalCount}
           pageNo={accommoData?.pageNo}

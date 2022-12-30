@@ -28,7 +28,7 @@ export function fetchAccommodation(type, areaCode = '1', sigunguCode = '1', page
     dispatch(fetchAccommodationRequest());
     fetch(
       // 타입, 지역, 시군구 코드에 따라 api 호출
-      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${SERVICE_KEY}&numOfRows=8&pageNo=1&MobileOS=ETC&MobileApp=AppTest&Arrange=O&listYN=Y&_type=json&areaCode=${areaCode}&sigunguCode=${sigunguCode}`
+      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${SERVICE_KEY}&numOfRows=8&pageNo=${pageNo}&MobileOS=ETC&MobileApp=AppTest&Arrange=O&listYN=Y&_type=json&areaCode=${areaCode}&sigunguCode=${sigunguCode}`
     )
       .then((res) => res.json())
       .then((data) => {

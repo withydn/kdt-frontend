@@ -28,9 +28,33 @@
 }
 
 .navItem {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--color-text);
   padding: 0.3rem 0.6rem;
   cursor: pointer;
+  display: block;
+  padding: 1vw 1vw 1vw;
+  position: relative;
   font-family: "MaplestoryOTFBold";
+}
+
+.navItem::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+}
+
+.navItem::after {
+  width: 0;
+  height: 0.2vw;
+  background: black;
+  left: 50%;
+}
+
+.navItem:hover::after {
+  width: 100%;
+  left: 0;
+  transition: all 0.3s;
 }

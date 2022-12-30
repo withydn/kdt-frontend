@@ -114,7 +114,7 @@ export default function Travel() {
             className={styles.itemWrapper}
             onClick={() => dispatch(changeInitState())}
           >
-            <img src={data.firstimage || 'images/zoom.png'} alt={data.title} className={styles.img} />
+            <img src={data.firstimage || 'images/gray.jpg'} alt={data.title} className={styles.img} />
             <div className={styles.title}>{data.title}</div>
           </Link>
         ))}

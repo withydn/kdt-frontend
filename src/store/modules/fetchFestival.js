@@ -21,14 +21,11 @@ function fetchFestivalFail(payload) {
 }
 
 export function fetchFestival(type, areaCode = '1', sigunguCode = '1', date, pageNo = '1') {
-  const SERVICE_KEY =
-    'pXHnCUsvtd3WiENV2EBHwQIjv7VLn%2BH%2BSXrFKtODpyn3T9x9eH8S5qzsx%2FSQAC8d7%2FMJjLy139f3ui0IrsCZGw%3D%3D';
-
   return (dispatch) => {
     dispatch(fetchFestivalRequest());
     fetch(
       // 타입, 지역, 시군구 코드에 따라 api 호출
-      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${SERVICE_KEY}&numOfRows=8&pageNo=${pageNo}&MobileOS=ETC&MobileApp=AppTest&Arrange=A&listYN=Y&eventStartDate=${date}&areaCode=${areaCode}&sigunguCode=${sigunguCode}&_type=json`
+      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${process.env.REACT_APP_TOUR_KEY}&numOfRows=8&pageNo=${pageNo}&MobileOS=ETC&MobileApp=AppTest&Arrange=A&listYN=Y&eventStartDate=${date}&areaCode=${areaCode}&sigunguCode=${sigunguCode}&_type=json`
     )
       .then((res) => res.json())
       .then((data) => {

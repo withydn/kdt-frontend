@@ -1,23 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Editor from "./Editor";
-import styles from "./Write.module.css";
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Editor from './Editor';
+import styles from './Write.module.css';
 
 export default function Modify() {
   const { reviewNo } = useParams();
   const itemInput = useRef();
   const titleInput = useRef();
-  let textareaInput = "";
+  let textareaInput = '';
   const navigate = useNavigate();
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
 
   useEffect(() => {
     fetchReview();
   }, []);
 
   async function fetchReview() {
-    const reviewRes = await fetch(`http://localhost:4500/review/${reviewNo}`);
+    const reviewRes = await fetch(`http://3.36.132.58/review/${reviewNo}`);
     if (reviewRes.status === 200) {
       const data = await reviewRes.json();
       itemInput.current.value = data.item;
@@ -33,9 +33,7 @@ export default function Modify() {
   }
 
   async function post() {
-    textareaInput === ""
-      ? (textareaInput = content)
-      : (textareaInput = textareaInput);
+    textareaInput === '' ? (textareaInput = content) : (textareaInput = textareaInput);
 
     const modifyInfo = {
       item: itemInput.current.value,
@@ -44,32 +42,25 @@ export default function Modify() {
       email: userEmail,
     };
 
-    if (
-      modifyInfo.item !== "" &&
-      modifyInfo.title !== "" &&
-      modifyInfo.content
-    ) {
-      const postResponse = await fetch(
-        `http://localhost:4500/review/modify/${reviewNo}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(modifyInfo),
-        }
-      );
+    if (modifyInfo.item !== '' && modifyInfo.title !== '' && modifyInfo.content) {
+      const postResponse = await fetch(`http://3.36.132.58:4500/review/modify/${reviewNo}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(modifyInfo),
+      });
       if (postResponse.status === 200) {
         const result = await postResponse.json();
         if (result.result) {
           alert(result.msg);
-          navigate("/review");
+          navigate('/review');
         } else {
           alert(result.msg);
         }
       }
     } else {
-      alert("필수 정보를 입력해주세요");
+      alert('필수 정보를 입력해주세요');
     }
   }
 
@@ -84,34 +75,30 @@ export default function Modify() {
           <div className={styles.item_name}>*여행상품</div>
           <div className={styles.item_tourli}>
             <select className={styles.tourli} ref={itemInput}>
-              <option value="">선택</option>
-              <option value="강원">강원</option>
-              <option value="경기">경기</option>
-              <option value="경남">경남</option>
-              <option value="경북">경북</option>
-              <option value="경주">경주</option>
-              <option value="대구">대구</option>
-              <option value="대전">대전</option>
-              <option value="부산">부산</option>
-              <option value="서울">서울</option>
-              <option value="울산">울산</option>
-              <option value="인천">인천</option>
-              <option value="전남">전남</option>
-              <option value="전북">전북</option>
-              <option value="제주">제주</option>
-              <option value="충남">충남</option>
-              <option value="충북">충북</option>
+              <option value=''>선택</option>
+              <option value='강원'>강원</option>
+              <option value='경기'>경기</option>
+              <option value='경남'>경남</option>
+              <option value='경북'>경북</option>
+              <option value='경주'>경주</option>
+              <option value='대구'>대구</option>
+              <option value='대전'>대전</option>
+              <option value='부산'>부산</option>
+              <option value='서울'>서울</option>
+              <option value='울산'>울산</option>
+              <option value='인천'>인천</option>
+              <option value='전남'>전남</option>
+              <option value='전북'>전북</option>
+              <option value='제주'>제주</option>
+              <option value='충남'>충남</option>
+              <option value='충북'>충북</option>
             </select>
           </div>
         </div>
         <div className={styles.content_box}>
           <div className={styles.content_name}>*제목</div>
           <div className={styles.content_input}>
-            <input
-              type="text"
-              placeholder="제목을 입력하세요"
-              ref={titleInput}
-            ></input>
+            <input type='text' placeholder='제목을 입력하세요' ref={titleInput}></input>
           </div>
         </div>
         <div className={styles.review_box}>
@@ -124,7 +111,7 @@ export default function Modify() {
           <button className={styles.btn_push} onClick={() => post()}>
             수정하기
           </button>
-          <Link to="/review">
+          <Link to='/review'>
             <button className={styles.btn_cancel}>취소하기</button>
           </Link>
         </div>

@@ -98,3 +98,7 @@
   color: #faf8ff;
   background-color: #666666;
 }
+
+.close {
+  cursor: pointer;
+}

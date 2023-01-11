@@ -6,7 +6,7 @@ import { fetchSigungu } from '../../store/modules/fetchSigungu';
 
 export default function SelectInput() {
   const [isOpen, setIsOpen] = useState(false);
-  const { type, areaCode, sigunguCode } = useSelector((state) => state.searchInfo);
+  const { areaCode, sigunguCode } = useSelector((state) => state.searchInfo);
   const { sigunGuData, loading } = useSelector((state) => state.fetchsigungu);
   const dispatch = useDispatch();
   const inputRef = useRef();
@@ -64,7 +64,9 @@ export default function SelectInput() {
         <div className={styles.areaWrapper}>
           <div className={styles.textWrapper}>
             <div className={styles.text}>지역을 선택하세요</div>
-            <div onClick={() => setIsOpen(false)}>닫기</div>
+            <div className={styles.close} onClick={() => setIsOpen(false)}>
+              닫기
+            </div>
           </div>
 
           <div className={styles.listWrapper}>

@@ -26,13 +26,10 @@ export function changeInitState() {
 }
 
 export function fetchDetailInfo(contentId) {
-  const SERVICE_KEY =
-    'pXHnCUsvtd3WiENV2EBHwQIjv7VLn%2BH%2BSXrFKtODpyn3T9x9eH8S5qzsx%2FSQAC8d7%2FMJjLy139f3ui0IrsCZGw%3D%3D';
-
   return (dispatch) => {
     dispatch(fetchDetailInfoRequest());
     fetch(
-      `http://apis.data.go.kr/B551011/KorService/detailCommon?defaultYN=Y&serviceKey=${SERVICE_KEY}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&contentId=${contentId}&_type=json&firstImageYN=Y&addrinfoYN=Y&overviewYN=Y&mapinfoYN=Y`
+      `http://apis.data.go.kr/B551011/KorService/detailCommon?defaultYN=Y&serviceKey=${process.env.REACT_APP_TOUR_KEY}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&contentId=${contentId}&_type=json&firstImageYN=Y&addrinfoYN=Y&overviewYN=Y&mapinfoYN=Y`
     )
       .then((res) => res.json())
       .then((data) => {

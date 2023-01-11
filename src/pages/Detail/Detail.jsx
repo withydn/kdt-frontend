@@ -24,7 +24,7 @@ export default function Detail() {
   useEffect(() => {
     const fetchIsCheck = async () => {
       const loginInfo = { email: userEmail, contentId: state.contentId };
-      const loginResponse = await fetch('http://localhost:4500/addLike/isCheck', {
+      const loginResponse = await fetch('http://3.36.132.58:4500/addLike/isCheck', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ export default function Detail() {
 
   const fetchLike = async () => {
     const loginInfo = { email: userEmail, contentId: state.contentId };
-    const loginResponse = await fetch('http://localhost:4500/addLike', {
+    const loginResponse = await fetch('http://3.36.132.58:4500/addLike', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export default function Detail() {
       setSubscribe(result.msg);
     }
   };
-  console.log(infoData);
+
   return (
     <section className={styles.container}>
       <h2 className={styles.sectionTitle}>{infoData[0]?.title}</h2>
@@ -77,7 +77,10 @@ export default function Detail() {
               </div>
               <div className={styles.timeLinebody}>
                 <h4 className={styles.timeLineTitle}>{data.title}</h4>
-                <p className={styles.timeLineOverview} dangerouslySetInnerHTML={{ __html: data.overview }} />
+                <p
+                  className={styles.timeLineOverview}
+                  dangerouslySetInnerHTML={{ __html: data.overview === '-' ? '' : data.overview }}
+                />
                 {state.eventstartdate && (
                   <div className={styles.timeLineOverview}>
                     기간 : {state.eventstartdate} ~ {state.eventenddate}

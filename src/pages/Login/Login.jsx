@@ -20,7 +20,7 @@ export default function Login() {
       password: userPasswordInput.current.value,
     };
     if (loginInfo.email !== '' && loginInfo.password !== '') {
-      const loginResponse = await fetch('http://localhost:4500/login', {
+      const loginResponse = await fetch('http://3.36.132.58:4500/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

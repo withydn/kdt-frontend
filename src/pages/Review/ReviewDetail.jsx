@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import styles from "./Review.module.css";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThumbsUp,
-  faRectangleXmark,
-} from "@fortawesome/free-regular-svg-icons";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styles from './Review.module.css';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp, faRectangleXmark } from '@fortawesome/free-regular-svg-icons';
+import { useSelector } from 'react-redux';
 
 export default function ReviewDetail() {
   const { reviewNo } = useParams();
@@ -32,55 +29,49 @@ export default function ReviewDetail() {
   // let selectDate = `${year}년 ${month}월 ${date}일`;
 
   const deleteComment = async (author, comment) => {
-    const deleteCommentResponse = await fetch(
-      `http://localhost:4500/review/comment/delete/${reviewNo}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          author: author,
-          comment: comment,
-        }),
-      }
-    );
+    const deleteCommentResponse = await fetch(`http://3.36.132.58:4500/review/comment/delete/${reviewNo}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        author: author,
+        comment: comment,
+      }),
+    });
     if (deleteCommentResponse.status === 200) {
       const deleteCommentResult = await deleteCommentResponse.json();
       alert(deleteCommentResult.msg);
       setComment(!comment);
     } else {
-      alert("서버 통신 에러");
+      alert('서버 통신 에러');
     }
   };
 
   const postCommnet = async () => {
-    const addCommentResponse = await fetch(
-      `http://localhost:4500/review/comment/add/${reviewNo}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          author: userEmail,
-          comment: commentInput.current.value,
-          registerTime: new Date(),
-        }),
-      }
-    );
-    commentInput.current.value = "";
+    const addCommentResponse = await fetch(`http://3.36.132.58:4500/review/comment/add/${reviewNo}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        author: userEmail,
+        comment: commentInput.current.value,
+        registerTime: new Date(),
+      }),
+    });
+    commentInput.current.value = '';
     if (addCommentResponse.status === 200) {
       const addCommentResult = await addCommentResponse.json();
       alert(addCommentResult.msg);
       setComment(!comment);
     } else {
-      alert("서버 통신 에러");
+      alert('서버 통신 에러');
     }
   };
 
   async function fetchReview() {
-    const reviewRes = await fetch(`http://localhost:4500/review/${reviewNo}`);
+    const reviewRes = await fetch(`http://3.36.132.58:4500/review/${reviewNo}`);
     if (reviewRes.status === 200) {
       const data = await reviewRes.json();
       setReview(data);
@@ -88,58 +79,49 @@ export default function ReviewDetail() {
     }
   }
   async function addLike() {
-    const likeRes = await fetch(
-      `http://localhost:4500/review/addLike/${reviewNo}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const likeRes = await fetch(`http://3.36.132.58:4500/review/addLike/${reviewNo}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     if (likeRes.status === 200) {
       const msg = await likeRes.json();
-      if (msg === "업데이트 성공") {
+      if (msg === '업데이트 성공') {
         setLike(like + 1);
       } else {
-        alert("업데이트 문제");
+        alert('업데이트 문제');
       }
     }
   }
   async function addCount() {
-    const countRes = await fetch(
-      `http://localhost:4500/review/addCount/${reviewNo}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const countRes = await fetch(`http://3.36.132.58:4500/review/addCount/${reviewNo}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     if (countRes.status === 200) {
       const msg = await countRes.json();
-      if (msg === "업데이트 문제") {
-        alert("업데이트 문제");
+      if (msg === '업데이트 문제') {
+        alert('업데이트 문제');
       }
     }
   }
 
   const deleteReview = async () => {
-    const deleteReviewResponse = await fetch(
-      `http://localhost:4500/review/delete/${reviewNo}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const deleteReviewResponse = await fetch(`http://3.36.132.58:4500/review/delete/${reviewNo}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     if (deleteReviewResponse.status === 200) {
       const deleteReviewResult = await deleteReviewResponse.json();
       alert(deleteReviewResult.msg);
-      navigate("/review");
+      navigate('/review');
     } else {
-      alert("리뷰 삭제 실패");
+      alert('리뷰 삭제 실패');
     }
   };
 
@@ -157,19 +139,14 @@ export default function ReviewDetail() {
           <span className={styles.item_box}>{review.item}</span>
           <span className={styles.title_box}>{review.title}</span>
           <span className={styles.author_box}>{review.author}</span>
-          <span className={styles.registerTime_box}>
-            {review.registerTime?.substring(0, 10)}
-          </span>
+          <span className={styles.registerTime_box}>{review.registerTime?.substring(0, 10)}</span>
           <span className={styles.counts_box}>{review.counts}</span>
         </div>
-        <div
-          className={styles.content}
-          dangerouslySetInnerHTML={{ __html: review.content }}
-        ></div>
+        <div className={styles.content} dangerouslySetInnerHTML={{ __html: review.content }}></div>
         <div className={styles.btn_box}>
           <div className={styles.like_box}>
             <h3 className={styles.like_text}>
-              후기가 도움이 되었나요?{" "}
+              후기가 도움이 되었나요?{' '}
               <button className={styles.like_btn} onClick={() => addLike()}>
                 <FontAwesomeIcon icon={faThumbsUp} />
               </button>
@@ -190,10 +167,7 @@ export default function ReviewDetail() {
             <Link to={`/review/modify/${reviewNo}`}>
               <button className={styles.write_modify}>수정</button>
             </Link>
-            <button
-              className={styles.write_delete}
-              onClick={() => deleteReview()}
-            >
+            <button className={styles.write_delete} onClick={() => deleteReview()}>
               삭제
             </button>
           </div>
@@ -206,10 +180,7 @@ export default function ReviewDetail() {
               <span className={styles.comment_date}>
                 {el.registerTime?.substring(0, 10)}
                 {userEmail === el.author && (
-                  <button
-                    className={styles.comment_delete}
-                    onClick={() => deleteComment(el.author, el.comment)}
-                  >
+                  <button className={styles.comment_delete} onClick={() => deleteComment(el.author, el.comment)}>
                     <FontAwesomeIcon icon={faRectangleXmark} />
                   </button>
                 )}
@@ -220,16 +191,10 @@ export default function ReviewDetail() {
         {isLogin && (
           <div className={styles.comment_write_box}>
             댓글
-            <input
-              type="text"
-              placeholder="내용을 입력해주세요"
-              ref={commentInput}
-            ></input>
+            <input type='text' placeholder='내용을 입력해주세요' ref={commentInput}></input>
             <button
               className={`${styles.comment_push} ${
-                comment.length > 0
-                  ? styles.submitCommentActive
-                  : styles.submitCommentInactive
+                comment.length > 0 ? styles.submitCommentActive : styles.submitCommentInactive
               }`}
               onClick={postCommnet}
             >
@@ -238,7 +203,7 @@ export default function ReviewDetail() {
           </div>
         )}
 
-        <Link to="/review">
+        <Link to='/review'>
           <button className={styles.btn}>목록</button>
         </Link>
       </div>

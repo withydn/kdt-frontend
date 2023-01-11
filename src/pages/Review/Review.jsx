@@ -14,7 +14,7 @@ export default function Review() {
   }, []);
 
   async function fetchAllReview() {
-    const reviewRes = await fetch("http://localhost:4500/review/getAll");
+    const reviewRes = await fetch("http://3.36.132.58:4500/review/getAll");
     if (reviewRes.status === 200) {
       const data = await reviewRes.json();
 
@@ -25,7 +25,7 @@ export default function Review() {
   const [count, setCount] = useState(0);
   async function addCounts() {
     const countRes = await fetch(
-      `http://localhost:4500/review/addCounts/${reviewNo}`,
+      `http://3.36.132.58:4500/review/addCounts/${reviewNo}`,
       {
         method: "POST",
         headers: {

@@ -21,13 +21,10 @@ function fetchByDistanceFail(payload) {
 }
 
 export function fetchByDistance(longitude, latitude) {
-  const SERVICE_KEY =
-    'pXHnCUsvtd3WiENV2EBHwQIjv7VLn%2BH%2BSXrFKtODpyn3T9x9eH8S5qzsx%2FSQAC8d7%2FMJjLy139f3ui0IrsCZGw%3D%3D';
-
   return (dispatch) => {
     dispatch(fetchByDistanceRequest());
     fetch(
-      `http://apis.data.go.kr/B551011/KorService/locationBasedList?serviceKey=${SERVICE_KEY}&numOfRows=15&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=S&mapX=${longitude}&mapY=${latitude}&radius=2000&listYN=Y&_type=json`
+      `http://apis.data.go.kr/B551011/KorService/locationBasedList?serviceKey=${process.env.REACT_APP_TOUR_KEY}&numOfRows=15&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=S&mapX=${longitude}&mapY=${latitude}&radius=2000&listYN=Y&_type=json`
     )
       .then((res) => res.json())
       .then((data) => {

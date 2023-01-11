@@ -27,16 +27,13 @@ export function fetchTourList(
   contentTypeId = '12',
   pageNo = '1'
 ) {
-  const SERVICE_KEY =
-    'pXHnCUsvtd3WiENV2EBHwQIjv7VLn%2BH%2BSXrFKtODpyn3T9x9eH8S5qzsx%2FSQAC8d7%2FMJjLy139f3ui0IrsCZGw%3D%3D';
-
   const contentType = contentTypeId ? `&contentTypeId=${contentTypeId}` : '';
 
   return (dispatch) => {
     dispatch(fetchTourListRequest());
     fetch(
       // 타입, 지역, 시군구 코드에 따라 api 호출
-      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${SERVICE_KEY}&pageNo=${pageNo}&numOfRows=8&MobileApp=AppTest&MobileOS=ETC&arrange=O&areaCode=${areaCode}&sigunguCode=${sigunguCode}&_type=json${contentType}`
+      `http://apis.data.go.kr/B551011/KorService/${type}?serviceKey=${process.env.REACT_APP_TOUR_KEY}&pageNo=${pageNo}&numOfRows=8&MobileApp=AppTest&MobileOS=ETC&arrange=O&areaCode=${areaCode}&sigunguCode=${sigunguCode}&_type=json${contentType}`
     )
       .then((res) => res.json())
       .then((data) => {

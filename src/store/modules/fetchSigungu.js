@@ -21,13 +21,10 @@ function fetchSigunguFail(payload) {
 }
 
 export function fetchSigungu(areaCode) {
-  const SERVICE_KEY =
-    'pXHnCUsvtd3WiENV2EBHwQIjv7VLn%2BH%2BSXrFKtODpyn3T9x9eH8S5qzsx%2FSQAC8d7%2FMJjLy139f3ui0IrsCZGw%3D%3D';
-
   return (dispatch) => {
     dispatch(fetchSigunguRequest());
     fetch(
-      `http://apis.data.go.kr/B551011/KorService/areaCode?pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=${SERVICE_KEY}&areaCode=${areaCode}&numOfRows=100&_type=json`
+      `http://apis.data.go.kr/B551011/KorService/areaCode?pageNo=1&MobileOS=ETC&MobileApp=AppTest&serviceKey=${process.env.REACT_APP_TOUR_KEY}&areaCode=${areaCode}&numOfRows=100&_type=json`
     )
       .then((res) => res.json())
       .then((data) => {

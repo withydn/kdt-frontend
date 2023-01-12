@@ -50,7 +50,7 @@ export default function KakaoRedirectHandeler() {
             type: 'kakao',
           };
           // 회원 가입 처리
-          const registerResponse = await fetch('http://3.36.132.58:4500/register', {
+          const registerResponse = await fetch('http://localhost:4500/register', {
             method: 'POST',
             headers: {
               'Content-type': 'application/json',
